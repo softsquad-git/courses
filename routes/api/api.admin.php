@@ -24,6 +24,25 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::put('update/{id}', 'LevelController@update');
             Route::delete('remove/{id}', 'LevelController@remove');
         });
+
+        Route::group(['prefix' => 'lessons'], function () {
+            Route::get('', 'CourseLessonController@all');
+            Route::post('create', 'CourseLessonController@create');
+            Route::post('update/{id}', 'CourseLessonController@update');
+            Route::delete('remove/{id}', 'CourseLessonController@remove');
+            Route::get('find/{id}', 'CourseLessonController@find');
+
+            Route::group(['prefix' => 'images'], function () {
+               Route::get('', 'CourseLessonImagesController@all');
+               Route::post('upload', 'CourseLessonImagesController@upload');
+               Route::delete('remove', 'CourseLessonImagesController@remove');
+            });
+
+            Route::group(['prefix' => 'exercises'], function () {
+                Route::get('types', 'ExercisesTypeController');
+                Route::post('create', 'CourseLessonExerciseController@create');
+            });
+        });
     });
     Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
         Route::get('', 'UserController@all');
@@ -33,5 +52,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('', 'SettingAppController@all');
         Route::get('find/{id}', 'SettingAppController@find');
         Route::patch('update/{id}', 'SettingController@update');
+    });
+    Route::group(['prefix' => 'newsletters', 'namespace' => 'Newsletter'], function () {
+        Route::get('', 'NewsletterController@all');
     });
 });

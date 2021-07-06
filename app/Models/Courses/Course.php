@@ -6,6 +6,7 @@ use App\Models\Languages\Language;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @package App\Models\Courses
@@ -47,5 +48,13 @@ class Course extends Model
     public function language(): BelongsTo
     {
         return $this->belongsTo(Language::class)->withDefault();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class, 'course_id');
     }
 }
