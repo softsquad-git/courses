@@ -6,5 +6,14 @@ return [
         'logo' => 'Logo',
         'app_name' => 'Nazwa aplikacji',
         'duration_promotion' => 'Czas promocji'
+    ],
+    'home' => [
+        'images' => [
+            'positions' => [
+                'top' => 'Zdjęcie główne',
+                'one' => 'Pierwsze zdjęcie',
+                'two' => 'Drugie zdjęcie'
+            ]
+        ]
     ]
 ];

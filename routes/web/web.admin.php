@@ -138,5 +138,11 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
            Route::delete('remove/{id}', 'HomeWordsController@remove')
                ->name('admin.home.words.remove');
         });
+        Route::group(['prefix' => 'images'], function () {
+            Route::match(['get', 'post'], '', 'HomeImagesController@index')
+                ->name('admin.home.images.index');
+            Route::delete('remove/{id}', 'HomeImagesController@remove')
+                ->name('admin.home.images.remove');
+        });
     });
 });

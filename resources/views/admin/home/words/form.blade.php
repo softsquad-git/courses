@@ -3,6 +3,9 @@
     <div class="form-group">
         <label for="name" class="col-form-label">Dodaj słowo</label>
         <input id="name" name="name" class="form-control" value="{{ $item->name ? $item->name : old('name') }}">
+        @error('name')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-outline-primary">Zapisz</button>
