@@ -20,6 +20,7 @@ use Laravel\Passport\HasApiTokens;
  * @property bool is_newsletter
  * @property string avatarImage
  * @method static orderBy(string $string, string $ordering)
+ * @method static create(array $array)
  */
 class User extends Authenticatable
 {
@@ -86,5 +87,13 @@ class User extends Authenticatable
         }
 
         return asset(self::$fileDir.'df.png');
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsActive(): string
+    {
+        return $this->is_active == 1 ? 'Tak' : 'Nie';
     }
 }

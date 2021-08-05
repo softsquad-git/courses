@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Settings;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\SettingAppRequest;
 use App\Http\Resources\Settings\SettingAppResource;
 use App\Repositories\Settings\SettingAppRepository;
@@ -11,74 +12,39 @@ use \Exception;
 use Illuminate\Http\JsonResponse;
 use \Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class SettingAppController extends ApiController
+class SettingAppController extends Controller
 {
-    /**
-     * @var SettingAppRepository $settingAppRepository
-     */
-    private SettingAppRepository $settingAppRepository;
-
-    /**
-     * @var SettingAppService $settingAppService
-     */
-    private SettingAppService $settingAppService;
-
     /**
      * @param SettingAppService $settingAppService
      * @param SettingAppRepository $settingAppRepository
      */
     public function __construct(
-        SettingAppService $settingAppService,
-        SettingAppRepository $settingAppRepository
+        private SettingAppService $settingAppService,
+        private SettingAppRepository $settingAppRepository
     )
+    { }
+
+    public function index()
     {
-        $this->settingAppRepository = $settingAppRepository;
-        $this->settingAppService = $settingAppService;
+        return view('admin.settings.index', [
+            'title' => 'Ustawienia'
+        ]);
     }
 
-    /**
-     * @return AnonymousResourceCollection|JsonResponse
-     */
-    public function all(): AnonymousResourceCollection|JsonResponse
+    public function application()
     {
-        try {
-            $data = $this->settingAppRepository->findAll();
+        $settingsApp = $this->settingAppRepository->findAll();
 
-            return SettingAppResource::collection($data);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
+        return view('admin.settings.app', [
+            'title' => 'Ustawienia aplikacji',
+            'settingsApp' => $settingsApp
+        ]);
     }
 
-    /**
-     * @param int $id
-     * @return SettingAppResource|JsonResponse
-     */
-    public function find(int $id): SettingAppResource|JsonResponse
+    public function account()
     {
-        try {
-            $item = $this->settingAppRepository->find($id);
-
-            return new SettingAppResource($item);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
-    }
-
-    /**
-     * @param SettingAppRequest $request
-     * @param int $id
-     * @return JsonResponse
-     */
-    public function update(SettingAppRequest $request, int $id): JsonResponse
-    {
-        try {
-            $item = $this->settingAppRepository->find($id);
-            $this->settingAppService->update($request->all(), $item);
-
-            return $this->createdResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
+        return view('admin.settings.account', [
+            'title' => 'Ustawienia konta'
+        ]);
     }
 }

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static insert(array $dataSave)
+ * @property int question_id
+ * @property int exercise_id
+ * @property string reply
+ * @property bool is_true
  */
 class ExerciseListenAnswerQuestionAnswer extends Model
 {

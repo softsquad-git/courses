@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Courses;
 
+use App\Models\Courses\Exercises\Exercise;
 use App\Models\Courses\Lesson;
 use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\Model;

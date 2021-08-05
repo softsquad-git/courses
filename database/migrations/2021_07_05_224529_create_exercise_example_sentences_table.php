@@ -35,3 +35,4 @@ class CreateExerciseExampleSentencesTable extends Migration
         Schema::dropIfExists('exercise_example_sentences');
     }
 }
+

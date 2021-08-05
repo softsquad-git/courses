@@ -6,9 +6,12 @@ use App\Models\Courses\Exercises\Exercise;
 use App\Models\Courses\Exercises\ExerciseExampleSentence;
 use App\Models\Courses\Exercises\ExerciseImageAnswer;
 use App\Models\Courses\Exercises\ExerciseImageTxt;
+use App\Models\Courses\Exercises\ExerciseIndicateCorrectAnswer;
 use App\Models\Courses\Exercises\ExerciseListenAnswerQuestion;
 use App\Models\Courses\Exercises\ExerciseListenChooseAnswer;
 use App\Models\Courses\Exercises\ExerciseQuestionAnswer;
+use App\Models\Courses\Exercises\ExerciseQuestionTrueOrFalse;
+use App\Models\Courses\Exercises\ExerciseTip;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
@@ -35,12 +38,14 @@ final class ExerciseDataFieldsService extends ExerciseMediaService
         if (isset($data['image']) && !empty($data['image'])) {
             $data['image'] = $this->uploadImage($data['image']);
         }
-        $data['image'] = '';
 
         if (isset($data['sound_file']) && !empty($data['sound_file'])) {
             $data['sound_file'] = $this->uploadSoundFile($data['sound_file']);
         }
-        $data['sound_file'] = '';
+
+        if (!isset($data['is_true'])) {
+            $data['is_true'] = 0;
+        }
 
         return $fields::create($data);
     }
@@ -54,13 +59,16 @@ final class ExerciseDataFieldsService extends ExerciseMediaService
         $model = null;
 
         $model = match ($type) {
-            Exercise::$types['IMAGE_TXT'] => new ExerciseImageTxt(),
-            Exercise::$types['LISTEN_ANSWER_QUESTION'] => new ExerciseListenAnswerQuestion(),
-            Exercise::$types['LISTEN_CHOOSE_ANSWER'] => new ExerciseListenChooseAnswer(),
-            Exercise::$types['QUESTION_SELECT_ANSWER'] => new ExerciseQuestionAnswer(),
-            Exercise::$types['IMAGE_SELECT_ANSWER'] => new ExerciseImageAnswer(),
-            Exercise::$types['EXAMPLE_SENTENCES'] => new ExerciseExampleSentence(),
-            default => null,
+            Exercise::$types['IMAGE_TXT']                           => new ExerciseImageTxt(),
+            Exercise::$types['LISTEN_ANSWER_QUESTION']              => new ExerciseListenAnswerQuestion(),
+            Exercise::$types['LISTEN_CHOOSE_ANSWER']                => new ExerciseListenChooseAnswer(),
+            Exercise::$types['QUESTION_SELECT_ANSWER']              => new ExerciseQuestionAnswer(),
+            Exercise::$types['IMAGE_SELECT_ANSWER']                 => new ExerciseImageAnswer(),
+            Exercise::$types['EXAMPLE_SENTENCES']                   => new ExerciseExampleSentence(),
+            Exercise::$types['TIP']                                 => new ExerciseTip(),
+            Exercise::$types['INDICATE_CORRECT_ANSWERS']            => new ExerciseIndicateCorrectAnswer(),
+            Exercise::$types['ANSWER_QUESTION_BOOL']                => new ExerciseQuestionTrueOrFalse(),
+            default                                                 => null
         };
 
         return $model;

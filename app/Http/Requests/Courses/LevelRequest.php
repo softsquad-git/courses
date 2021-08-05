@@ -19,8 +19,13 @@ class LevelRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|min:3'
-        ];
+        $rules = [];
+        if ($this->isMethod('post')) {
+            $rules = [
+                'name' => 'required|string|min:3'
+            ];
+        }
+
+        return $rules;
     }
 }

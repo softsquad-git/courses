@@ -51,4 +51,28 @@ class ExerciseListenAnswerQuestion extends Model
     {
         return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id');
     }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        if ($this->image) {
+            return asset(Exercise::$fileImageDir.$this->image);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoundFile(): ?string
+    {
+        if ($this->sound_file) {
+            return asset(Exercise::$fileSoundDir.$this->sound_file);
+        }
+
+        return null;
+    }
 }

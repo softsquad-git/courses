@@ -3,113 +3,99 @@
 namespace App\Http\Controllers\Admin\Courses;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Courses\LevelRequest;
 use App\Http\Resources\Levels\LevelResource;
+use App\Models\Courses\Level;
 use App\Repositories\Levels\LevelRepository;
 use App\Services\Levels\LevelService;
 use \Exception;
-use Illuminate\Http\JsonResponse;
-use \Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use \Illuminate\Contracts\View\View;
+use \Illuminate\Contracts\View\Factory;
+use \Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 
-class LevelController extends ApiController
+class LevelController extends Controller
 {
-    /**
-     * @var LevelRepository $levelRepository
-     */
-    private LevelRepository $levelRepository;
-
-    /**
-     * @var LevelService $levelService
-     */
-    private LevelService $levelService;
-
     /**
      * @param LevelRepository $levelRepository
      * @param LevelService $levelService
      */
     public function __construct(
-        LevelRepository $levelRepository,
-        LevelService $levelService
+        private LevelRepository $levelRepository,
+        private LevelService $levelService
     )
     {
-        $this->levelRepository = $levelRepository;
-        $this->levelService = $levelService;
     }
 
     /**
-     * @param int $id
-     * @return LevelResource|JsonResponse
+     * @return Application|Factory|View
      */
-    public function find(int $id): LevelResource|JsonResponse
+    public function all(): Application|Factory|View
     {
-        try {
-            $item = $this->levelRepository->find($id);
+        $data = $this->levelRepository->findAll();
 
-            return new LevelResource($item);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
-    }
-
-    /**
-     * @return JsonResponse|AnonymousResourceCollection
-     */
-    public function all(): JsonResponse|AnonymousResourceCollection
-    {
-        try {
-            $data = $this->levelRepository->findAll();
-
-            return LevelResource::collection($data);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
+        return view('admin.courses.levels.index', [
+            'data' => $data,
+            'title' => 'Poziomy trudności'
+        ]);
     }
 
     /**
      * @param LevelRequest $request
-     * @return JsonResponse
+     * @return Application|View|Factory|RedirectResponse
      */
-    public function create(LevelRequest $request): JsonResponse
+    public function create(LevelRequest $request): Application|View|Factory|RedirectResponse
     {
-        try {
+        if ($request->isMethod('POST')) {
             $this->levelService->save($request->all());
 
-            return $this->createdResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+            return redirect()->route('admin.course.levels');
         }
+
+        return view('admin.courses.levels.form', [
+            'item' => new Level(),
+            'title' => 'Dodaj poziom trudności'
+        ]);
     }
 
     /**
      * @param LevelRequest $request
      * @param int $id
-     * @return JsonResponse
+     * @return Application|Factory|View|RedirectResponse
+     * @throws Exception
      */
-    public function update(LevelRequest $request, int $id): JsonResponse
+    public function update(LevelRequest $request, int $id): Application|Factory|View|RedirectResponse
     {
-        try {
-            $item = $this->levelRepository->find($id);
+        $item = $this->levelRepository->find($id);
+        if (!$item) {
+            return $this->noPage();
+        }
+        if ($request->isMethod('POST')) {
             $this->levelService->update($request->all(), $item);
 
-            return $this->createdResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+            return redirect()->route('admin.course.levels');
         }
+
+        return view('admin.courses.levels.form', [
+            'item' => $item,
+            'title' => 'Edytuj poziom trudności'
+        ]);
     }
 
     /**
      * @param int $id
-     * @return JsonResponse
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function remove(int $id): JsonResponse
+    public function remove(int $id): RedirectResponse
     {
-        try {
-            $item = $this->levelRepository->find($id);
-            $this->levelService->remove($item);
-
-            return $this->deletedResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+        $item = $this->levelRepository->find($id);
+        if (!$item) {
+            return $this->noPage();
         }
+        $this->levelService->remove($item);
+
+        return redirect()->route('admin.course.levels');
     }
 }

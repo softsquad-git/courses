@@ -20,9 +20,14 @@ class LanguageRequest extends FormRequest
      */
     #[ArrayShape(['name' => "string", 'code' => "string"])] public function rules(): array
     {
-        return [
-            'name' => 'required|string|min:3',
-            'code' => 'required|string|min:2'
-        ];
+        $rules = [];
+        if ($this->isMethod('post')) {
+            $rules = [
+                'name' => 'required|string|min:3',
+                'code' => 'required|string|min:2'
+            ];
+        }
+
+        return $rules;
     }
 }

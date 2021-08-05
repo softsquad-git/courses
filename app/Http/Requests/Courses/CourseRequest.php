@@ -20,11 +20,16 @@ class CourseRequest extends FormRequest
      */
     #[ArrayShape(['name' => "string", 'level_id' => "string", 'language_id' => "string", 'is_active' => "string"])] public function rules():array
     {
-        return [
-            'name' => 'required|string',
-            'level_id' => 'required|integer',
-            'language_id' => 'required|integer',
-            'is_active' => 'required|integer'
-        ];
+        $rules = [];
+        if ($this->isMethod('post')) {
+            $rules = [
+                'name' => 'required|string',
+                'level_id' => 'required|integer',
+                'language_id' => 'required|integer',
+                'is_active' => 'required|integer'
+            ];
+        }
+
+        return $rules;
     }
 }

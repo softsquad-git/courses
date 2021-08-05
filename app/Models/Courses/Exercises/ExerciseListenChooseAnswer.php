@@ -45,4 +45,17 @@ class ExerciseListenChooseAnswer extends Model
         return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id', 'id')
             ->where(['exercise_id' => $this->exercise_id]);
     }
+
+    /**
+     * @return string|null
+     */
+    public function getSoundFile(): ?string
+    {
+        if ($this->sound_file) {
+            return asset(Exercise::$fileSoundDir.$this->sound_file);
+        }
+
+        return null;
+    }
+
 }

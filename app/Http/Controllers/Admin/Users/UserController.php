@@ -2,63 +2,58 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
-use App\Http\Controllers\ApiController;
-use App\Http\Resources\Users\UserResource;
-use App\Http\Resources\Users\UsersResource;
+use App\Http\Controllers\Controller;
 use App\Repositories\Users\UserRepository;
-use Illuminate\Http\Request;
 use \Exception;
-use Illuminate\Http\JsonResponse;
-use \Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use \Illuminate\Contracts\View\View;
+use \Illuminate\Contracts\View\Factory;
+use \Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class UserController extends Controller
 {
-    /**
-     * @var UserRepository $userRepository
-     */
-    private UserRepository $userRepository;
-
     /**
      * @param UserRepository $userRepository
      */
     public function __construct(
-        UserRepository $userRepository
+        private UserRepository $userRepository
     )
-    {
-        $this->userRepository = $userRepository;
-    }
+    {}
 
     /**
      * @param Request $request
-     * @return AnonymousResourceCollection|JsonResponse
+     * @return Application|Factory|View
      */
-    public function all(Request $request): AnonymousResourceCollection|JsonResponse
+    public function all(Request $request): Application|Factory|View
     {
-        try {
-            $data = $this->userRepository->findBy(
-                $request->all(),
-                $request->get('ordering', 'DESC'),
-                $request->get('pagination', 20)
-            );
+        $data = $this->userRepository->findBy(
+            $request->all(),
+            $request->get('ordering', 'DESC'),
+            $request->get('pagination', 20)
+        );
 
-            return UsersResource::collection($data);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
+        return view('admin.users.index', [
+            'data' => $data,
+            'title' => 'Lista użytkowników'
+        ]);
     }
 
     /**
      * @param int $id
-     * @return UserResource|JsonResponse
+     * @return Application|Factory|View|RedirectResponse
+     * @throws Exception
      */
-    public function find(int $id): UserResource|JsonResponse
+    public function find(int $id): Application|Factory|View|RedirectResponse
     {
-        try {
-            $item = $this->userRepository->find($id);
-
-            return new UserResource($item);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+        $item = $this->userRepository->find($id);
+        if (!$item) {
+            return $this->noPage();
         }
+
+        return view('admin.users.show', [
+            'item' => $item,
+            'title' => $item->name
+        ]);
     }
 }

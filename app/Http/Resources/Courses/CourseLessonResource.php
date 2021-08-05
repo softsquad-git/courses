@@ -2,8 +2,12 @@
 
 namespace App\Http\Resources\Courses;
 
+use App\Models\Courses\Lesson;
+use App\Models\Users\UserLessonExerciseProgress;
 use Illuminate\Http\Resources\Json\JsonResource;
 use \Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @package App\Http\Resources\Courses
@@ -16,14 +20,35 @@ class CourseLessonResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $completed = UserLessonExerciseProgress::where([
+            'lesson_id' => $this->id,
+            'user_id' => Auth::id()
+        ])->get();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => $this->getImage(),
+            'image' => asset(Lesson::$fileDir.$this->image),
             'course' => new CourseResource($this->course),
             'created_at' => (string)$this->created_at,
             'description' => $this->description,
-            'position' => $this->position
+            'position' => $this->position,
+            'time' => '7 min',
+            'progress' => [
+                'completed' => $completed->count(),
+                'all' => $this->exercises->count(),
+                'percent' => $this->getPercentage($this->exercises->count(), $completed->count())
+            ],
+            'is_premium' => $this->is_premium
         ];
+    }
+
+    #[Pure] private function getPercentage($total, $number): float|int
+    {
+        if ( $total > 0 ) {
+            return round(($number * 100) / $total, 2);
+        } else {
+            return 0;
+        }
     }
 }

@@ -48,4 +48,31 @@ class CourseLessonExerciseRepository extends Repository
 
         return $data->paginate($pagination);
     }
+
+    /**
+     * @param int $lessonId
+     * @return int|null
+     */
+    public function getMaxPosition(int $lessonId): ?int
+    {
+        $lessons = Exercise::where(['lesson_id' => $lessonId])->get();
+        if ($lessons->count() == 0) {
+            return null;
+        }
+
+        return $lessons->max('position');
+    }
+
+    /**
+     * @param int $lessonId
+     * @param int $position
+     * @return Exercise|null
+     */
+    public function findExercise(int $lessonId, int $position): Exercise|null
+    {
+        return Exercise::where([
+            'lesson_id' => $lessonId,
+            'position' => $position
+        ])->first();
+    }
 }

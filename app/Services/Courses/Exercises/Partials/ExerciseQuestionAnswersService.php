@@ -21,7 +21,7 @@ class ExerciseQuestionAnswersService
                 'question_id' => $model->id,
                 'exercise_id' => $model->exercise_id,
                 'reply' => $datum['reply'],
-                'is_true' => $datum['is_true']
+                'is_true' => isset($datum['is_true']) ? $datum['is_true'] : 0
             ];
         }
 

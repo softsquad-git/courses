@@ -46,7 +46,31 @@ class ExerciseImageAnswer extends Model
      */
     public function answers(): HasMany
     {
-        return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id', 'id')
-            ->where(['exercise_id' => $this->exercise_id]);
+        return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id')
+            ->where('exercise_id', $this->exercise_id);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        if ($this->image) {
+            return asset(Exercise::$fileImageDir.$this->image);
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoundFile(): ?string
+    {
+        if ($this->sound_file) {
+            return asset(Exercise::$fileSoundDir.$this->sound_file);
+        }
+
+        return null;
     }
 }

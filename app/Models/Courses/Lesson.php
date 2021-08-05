@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property float|null time
  * @property string image
  * @property int position
+ * @method static find(int $lessonId)
+ * @method static where(int[] $array)
  */
 class Lesson extends Model
 {
@@ -40,7 +42,8 @@ class Lesson extends Model
         'course_id',
         'time',
         'image',
-        'position'
+        'position',
+        'is_premium'
     ];
 
     /**

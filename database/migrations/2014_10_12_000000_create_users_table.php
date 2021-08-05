@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->boolean('is_terms')->default(1);
             $table->boolean('is_newsletter')->default(0);
             $table->string('avatar')->nullable();
+            $table->boolean('is_premium')->default(0);
+            $table->dateTime('expired_premium')->nullable();
             $table->timestamps();
         });
     }

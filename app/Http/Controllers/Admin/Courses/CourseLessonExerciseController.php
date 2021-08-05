@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers\Admin\Courses;
 
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Courses\CourseLessonExerciseRequest;
 use App\Http\Resources\Courses\CourseLessonExercisesResource;
+use App\Models\Courses\Exercises\Exercise;
 use App\Repositories\Courses\CourseLessonExerciseRepository;
 use App\Services\Courses\Exercises\CourseLessonExerciseService;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use \Exception;
-use Illuminate\Http\Request;
-use \Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use \Illuminate\Contracts\View\View;
+use \Illuminate\Contracts\View\Factory;
+use \Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 
-class CourseLessonExerciseController extends ApiController
+class CourseLessonExerciseController extends Controller
 {
     /**
      * @param CourseLessonExerciseRepository $courseLessonExerciseRepository
@@ -27,73 +31,75 @@ class CourseLessonExerciseController extends ApiController
 
     /**
      * @param Request $request
-     * @return JsonResponse|AnonymousResourceCollection
+     * @param int $lessonId
+     * @return Application|Factory|View
      */
-    public function all(Request $request): JsonResponse|AnonymousResourceCollection
+    public function all(Request $request, int $lessonId): Application|Factory|View
     {
-        try {
-            $data = $this->courseLessonExerciseRepository->findBy($request->all());
+        $filters = $request->all();
+        $filters['lesson_id'] = $lessonId;
+        $data = $this->courseLessonExerciseRepository->findBy($filters);
 
-            return CourseLessonExercisesResource::collection($data);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
-    }
-
-    /**
-     * @param int $id
-     * @return CourseLessonExercisesResource|JsonResponse
-     */
-    public function find(int $id): CourseLessonExercisesResource|JsonResponse
-    {
-        try {
-            $item = $this->courseLessonExerciseRepository->find($id);
-
-            return new CourseLessonExercisesResource($item);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
+        return \view('admin.courses.lessons.exercises.index', [
+            'data' => $data,
+            'title' => 'Ćwiczenia do lekcji',
+            'lessonId' => $lessonId
+        ]);
     }
 
     /**
      * @param CourseLessonExerciseRequest $request
-     * @return JsonResponse
+     * @param int $lessonId
+     * @return Application|Factory|View|RedirectResponse
+     * @throws Exception
      */
-    public function create(CourseLessonExerciseRequest $request): JsonResponse
+    public function create(CourseLessonExerciseRequest $request, int $lessonId): Application|Factory|View|RedirectResponse
     {
-        try {
+        if ($request->isMethod('POST')) {
             $this->courseLessonExerciseService->save($request->all());
 
-            return $this->createdResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+            return redirect()->back();
         }
+
+        return \view('admin.courses.lessons.exercises.form', [
+            'item' => new Exercise(),
+            'title' => 'Utwórz ćwiczenie',
+            'lessonId' => $lessonId
+        ]);
     }
 
-    public function update(CourseLessonExerciseRequest $request, int $id): JsonResponse
+    /**
+     * @param CourseLessonExerciseRequest $request
+     * @param int $id
+     * @return Application|Factory|View|RedirectResponse
+     * @throws Exception
+     */
+    public function update(CourseLessonExerciseRequest $request, int $id): Application|Factory|View|RedirectResponse
     {
-        try {
-            $item = $this->courseLessonExerciseRepository->find($id);
+        $item = $this->courseLessonExerciseRepository->find($id);
+        if ($request->isMethod('POST')) {
 
-            return $this->createdResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
         }
+
+        return \view('admin.courses.lessons.exercises.form', [
+            'item' => $item,
+            'title' => 'Edytuj ćwiczenie'
+        ]);
     }
 
     /**
      * @param int $id
-     * @return JsonResponse
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function remove(int $id): JsonResponse
+    public function remove(int $id): RedirectResponse
     {
-        try {
-            $item = $this->courseLessonExerciseRepository->find($id);
-            $this->courseLessonExerciseService->remove($item);
+        /**
+         * @var Exercise $item
+         */
+        $item = $this->courseLessonExerciseRepository->find($id);
+        $this->courseLessonExerciseService->remove($item);
 
-            return $this->deletedResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
+        return redirect()->back();
     }
 }

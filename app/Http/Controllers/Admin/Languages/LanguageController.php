@@ -2,114 +2,97 @@
 
 namespace App\Http\Controllers\Admin\Languages;
 
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Languages\LanguageRequest;
-use App\Http\Resources\Lenguages\LanguageResource;
+use App\Models\Languages\Language;
 use App\Repositories\Languages\LanguageRepository;
 use App\Services\Languages\LanguageService;
 use \Exception;
-use Illuminate\Http\JsonResponse;
-use \Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use \Illuminate\Contracts\View\View;
+use \Illuminate\Contracts\View\Factory;
+use \Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 
-class LanguageController extends ApiController
+class LanguageController extends Controller
 {
-    /**
-     * @var LanguageRepository $languageRepository
-     */
-    private LanguageRepository $languageRepository;
-
-    /**
-     * @var LanguageService $languageService
-     */
-    private LanguageService $languageService;
-
     /**
      * @param LanguageService $languageService
      * @param LanguageRepository $languageRepository
      */
     public function __construct(
-        LanguageService $languageService,
-        LanguageRepository $languageRepository
+        private LanguageService $languageService,
+        private LanguageRepository $languageRepository
     )
-    {
-        $this->languageRepository = $languageRepository;
-        $this->languageService = $languageService;
-    }
+    {}
 
     /**
-     * @return JsonResponse|AnonymousResourceCollection
+     * @return Application|Factory|View
      */
-    public function all(): JsonResponse|AnonymousResourceCollection
+    public function all(): Application|Factory|View
     {
-        try {
-            $data = $this->languageRepository->findAll();
+        $data = $this->languageRepository->findAll();
 
-            return LanguageResource::collection($data);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
-    }
-
-    /**
-     * @param int $id
-     * @return LanguageResource|JsonResponse
-     */
-    public function find(int $id): LanguageResource|JsonResponse
-    {
-        try {
-            $item = $this->languageRepository->find($id);
-
-            return new LanguageResource($item);
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
-        }
+        return view('admin.languages.index', [
+            'title' => 'Języki',
+            'data' => $data
+        ]);
     }
 
     /**
      * @param LanguageRequest $request
-     * @return JsonResponse
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function create(LanguageRequest $request): JsonResponse
+    public function create(LanguageRequest $request): Application|Factory|View|RedirectResponse
     {
-        try {
+        if ($request->isMethod('POST')) {
             $this->languageService->save($request->all());
 
-            return $this->createdResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+            return redirect()->route('admin.languages');
         }
-    }
+
+        return view('admin.languages.form', [
+            'item' => new Language(),
+            'title' => 'Dodaj język'
+        ]);
+     }
 
     /**
      * @param LanguageRequest $request
      * @param int $id
-     * @return JsonResponse
+     * @return Application|Factory|View|RedirectResponse
+     * @throws Exception
      */
-    public function update(LanguageRequest $request, int $id): JsonResponse
+    public function update(LanguageRequest $request, int $id): Application|Factory|View|RedirectResponse
     {
-        try {
-            $item = $this->languageRepository->find($id);
-            $this->languageService->update($request->all(), $item);
-
-            return $this->createdResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+        $item = $this->languageRepository->find($id);
+        if (!$item) {
+            return $this->noPage();
         }
+        if ($request->isMethod('POST')) {
+            $this->languageService->save($request->all());
+
+            return redirect()->route('admin.languages');
+        }
+
+        return view('admin.languages.form', [
+            'item' => $item,
+            'title' => 'Edytuj dane języka'
+        ]);
     }
 
     /**
      * @param int $id
-     * @return JsonResponse
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function remove(int $id): JsonResponse
+    public function remove(int $id): RedirectResponse
     {
-        try {
-            $item = $this->languageRepository->find($id);
-            $this->languageService->remove($item);
-
-            return $this->deletedResponse();
-        } catch (Exception $e) {
-            return $this->errorResponse($e);
+        $item = $this->languageRepository->find($id);
+        if (!$item) {
+            return $this->noPage();
         }
+        $this->languageService->remove($item);
+
+        return redirect()->route('admin.languages');
     }
 }

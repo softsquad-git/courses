@@ -2,10 +2,15 @@
 
 namespace App\Services;
 
+use App\Models\Courses\Lesson;
+use App\Traits\UploadFileTrait;
 use Illuminate\Database\Eloquent\Model;
+use \Exception;
 
 abstract class Service
 {
+    use UploadFileTrait;
+
     /**
      * @var Model $model
      */
@@ -22,6 +27,7 @@ abstract class Service
     /**
      * @param array $data
      * @return Model
+     * @throws Exception
      */
     public function save(array $data): Model
     {

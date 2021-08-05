@@ -20,10 +20,15 @@ class CourseLessonRequest extends FormRequest
      */
     #[ArrayShape(['name' => "string", 'description' => "string", 'course_id' => "string"])] public function rules(): array
     {
-        return [
-            'name' => 'required|string',
-            'description' => 'nullable|string',
-            'course_id' => 'required|integer'
-        ];
+        $rules = [];
+        if ($this->isMethod('post')) {
+            $rules = [
+                'name' => 'required|string',
+                'description' => 'nullable|string',
+                'course_id' => 'required|integer'
+            ];
+        }
+
+        return $rules;
     }
 }
