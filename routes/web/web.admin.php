@@ -111,4 +111,32 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
         Route::delete('remove/{id}', 'TestimonialController@remove')
             ->name('admin.testimonial.remove');
     });
+    Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
+        Route::group(['prefix' => 'information'], function () {
+            Route::get('', 'HomeInformationController@index')
+                ->name('admin.home.information.index');
+            Route::match(['get', 'post'], 'create', 'HomeInformationController@create')
+                ->name('admin.home.information.create');
+            Route::match(['get', 'post'], 'update/{id}', 'HomeInformationController@update')
+                ->name('admin.home.information.update');
+            Route::delete('remove/{id}', 'HomeInformationController@remove')
+                ->name('admin.home.information.remove');
+        });
+        Route::group(['prefix' => 'information_images'], function () {
+            Route::get('', 'HomeInformationImagesController@index')
+                ->name('admin.home.information_images.index');
+            Route::match(['get', 'post'], 'create', 'HomeInformationImagesController@create')
+                ->name('admin.home.information_images.create');
+            Route::match(['get', 'post'], 'update/{id}', 'HomeInformationImagesController@update')
+                ->name('admin.home.information_images.update');
+            Route::delete('remove/{id}', 'HomeInformationImagesController@remove')
+                ->name('admin.home.information_images.remove');
+        });
+        Route::group(['prefix' => 'words'], function () {
+           Route::match(['get', 'post'], '{id?}', 'HomeWordsController@index')
+               ->name('admin.home.words.index');
+           Route::delete('remove/{id}', 'HomeWordsController@remove')
+               ->name('admin.home.words.remove');
+        });
+    });
 });

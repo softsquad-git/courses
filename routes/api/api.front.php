@@ -23,4 +23,5 @@ Route::group(['prefix' => 'home', 'namespace' => 'Front\Home'], function () {
     Route::get('information', 'HomeInformationController');
     Route::get('information-images', 'HomeInformationImagesController');
     Route::get('testimonials', 'TestimonialsController@all');
+    Route::get('words', 'HomeWordsController');
 });

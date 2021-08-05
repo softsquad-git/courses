@@ -82,26 +82,4 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'web'
         Route::delete('remove/{id}', 'TestimonialController@remove');
         Route::get('find/{id}', 'TestimonialController@find');
     });
-    Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
-        Route::group(['prefix' => 'information'], function () {
-            Route::get('', 'HomeInformationController@index')
-                ->name('admin.home.information.index');
-            Route::match(['get', 'post'], 'create', 'HomeInformationController@create')
-                ->name('admin.home.information.create');
-            Route::match(['get', 'post'], 'update/{id}', 'HomeInformationController@update')
-                ->name('admin.home.information.update');
-            Route::delete('remove/{id}', 'HomeInformationController@remove')
-                ->name('admin.home.information.remove');
-        });
-        Route::group(['prefix' => 'information_images'], function () {
-            Route::get('', 'HomeInformationImagesController@index')
-                ->name('admin.home.information_images.index');
-            Route::match(['get', 'post'], 'create', 'HomeInformationImagesController@create')
-                ->name('admin.home.information_images.create');
-            Route::match(['get', 'post'], 'update/{id}', 'HomeInformationImagesController@update')
-                ->name('admin.home.information_images.update');
-            Route::delete('remove/{id}', 'HomeInformationImagesController@remove')
-                ->name('admin.home.information_images.remove');
-        });
-    });
 });

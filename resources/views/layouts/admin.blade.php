@@ -267,6 +267,9 @@
                             <li class="sidebar-item"><a href="{{ route('admin.home.information_images.index') }}" class="sidebar-link"><i
                                         class="mdi mdi-note-plus"></i><span class="hide-menu"> Lista informacji ze zdjęciem
                                         </span></a></li>
+                            <li class="sidebar-item"><a href="{{ route('admin.home.words.index') }}" class="sidebar-link"><i
+                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Lista słów
+                                        </span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
