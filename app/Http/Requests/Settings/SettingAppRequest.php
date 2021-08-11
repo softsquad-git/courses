@@ -19,8 +19,14 @@ class SettingAppRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $rules = [];
+        if ($this->isMethod('post')) {
+            $rules = [
+                'name' => 'required|string',
+                'value' => 'required'
+            ];
+        }
+
+        return $rules;
     }
 }

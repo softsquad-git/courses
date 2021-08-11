@@ -1,4 +1,3 @@
-<div class="form-group">
-    <label for="content" class="col-form-label">Treść</label>
-    <textarea class="form-control" name="exercise[content]" id="content">{{ old('content') }}</textarea>
+<div id="app">
+    <nine_-exercise-component type="{{request()->input('type')}}" save_url="{{ route('admin.exercise.create', ['lessonId' => $lessonId]) }}" lesson_id="{{$lessonId}}"></nine_-exercise-component>
 </div>

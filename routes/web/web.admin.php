@@ -69,10 +69,14 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
     Route::group(['prefix' => 'settings', 'namespace' => 'Settings'], function () {
         Route::get('', 'SettingAppController@index')
             ->name('admin.setting.index');
-        Route::get('application', 'SettingAppController@application')
+        Route::match(['get', 'post'], 'application', 'SettingAppController@application')
             ->name('admin.setting.application');
         Route::match(['get', 'post'], 'account', 'SettingAppController@account')
             ->name('admin.setting.account');
+        Route::patch('update-basic-data', 'SettingAppController@changeBasicData')
+            ->name('admin.setting.change_basic_data');
+        Route::patch('update-password', 'SettingAppController@changePassword')
+            ->name('admin.setting.change_password');
     });
     Route::group(['prefix' => 'newsletters', 'namespace' => 'Newsletter'], function () {
         Route::get('', 'NewsletterController@all');

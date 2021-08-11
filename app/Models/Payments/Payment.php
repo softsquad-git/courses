@@ -3,6 +3,7 @@
 namespace App\Models\Payments;
 
 use App\Models\Courses\Course;
+use App\Models\Subscriptions\Subscription;
 use App\Models\Users\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,9 @@ use JetBrains\PhpStorm\ArrayShape;
  * @property string token
  * @property string status
  * @property array status_value
+ * @property User user
+ * @property int subscribe_id
+ * @method static create(array $data)
  */
 class Payment extends Model
 {
@@ -35,8 +39,14 @@ class Payment extends Model
         'FINISHED' => 3
     ];
 
+    /**
+     * @var string $table
+     */
     protected $table = 'payments';
 
+    /**
+     * @var string[] $fillable
+     */
     protected $fillable = [
         'user_id',
         'amount',
@@ -44,9 +54,10 @@ class Payment extends Model
         'company_name',
         'company_address',
         'nip',
-        'course_id',
         'token',
-        'status'
+        'status',
+        'payu_order_id',
+        'subscribe_id'
     ];
 
     /**
@@ -59,7 +70,7 @@ class Payment extends Model
     /**
      * @return array
      */
-    #[ArrayShape(['code' => "string", 'name' => "string"])] public function getStatusAttribute(): array
+    #[ArrayShape(['code' => "string", 'name' => "string"])] public function getStatusValueAttribute(): array
     {
         return [
             'code' => $this->status,
@@ -76,10 +87,19 @@ class Payment extends Model
     }
 
     /**
+     * @return float|int|null
+     */
+    public function getAmount(): float|int|null
+    {
+        return $this->amount / 100;
+    }
+
+    /**
      * @return BelongsTo
      */
-    public function course(): BelongsTo
+    public function subscribe(): BelongsTo
     {
-        return $this->belongsTo(Course::class)->withDefault();
+        return $this->belongsTo(Subscription::class)->withDefault();
     }
+
 }

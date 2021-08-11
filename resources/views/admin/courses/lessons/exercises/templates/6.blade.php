@@ -1,7 +1,3 @@
-<div class="form-group row">
-    <div class="col-md-4">
-        <label for="txt" class="col-form-label">Tekst</label>
-        <input type="text" class="form-control" name="exercise[txt]" id="txt">
-    </div>
+<div id="app">
+    <six_-exercise-component type="{{request()->input('type')}}" save_url="{{ route('admin.exercise.create', ['lessonId' => $lessonId]) }}" lesson_id="{{$lessonId}}"></six_-exercise-component>
 </div>
-@include('admin.courses.lessons.exercises.templates.answers')

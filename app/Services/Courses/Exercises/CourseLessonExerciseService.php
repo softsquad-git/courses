@@ -7,6 +7,7 @@ use App\Models\Courses\Exercises\ExerciseListenAnswerQuestion;
 use App\Repositories\Courses\CourseLessonExerciseRepository;
 use App\Repositories\Courses\CourseLessonRepository;
 use App\Services\Courses\Exercises\Partials\ExerciseDataFieldsService;
+use App\Services\Courses\Exercises\Partials\ExerciseDialogueService;
 use App\Services\Courses\Exercises\Partials\ExerciseQuestionAnswersService;
 use Illuminate\Support\Facades\DB;
 use \Exception;
@@ -34,15 +35,23 @@ class CourseLessonExerciseService
             $data['position'] = $this->courseLessonExerciseRepository->getMaxPosition($data['lesson_id']) + 1;
             $exercise = Exercise::create($data);
 
-            $dataFields = $data['exercise'];
             $fields = $this->exerciseDataFieldsService->save(
-                $dataFields,
+                $data,
                 $exercise
             );
 
-            if (isset($data['speechBubble']) && count($data['speechBubble']) > 0) {
-                $data['speechBubble']['exercise_id'] = $exercise->id;
-                $this->exerciseSpeechBubbleService->save($data);
+            if (isset($data['speechBubble'])) {
+                if (is_string($data['speechBubble'])) {
+                    $data['speechBubble'] = json_decode($data['speechBubble'], true);
+                }
+                if (count($data['speechBubble']) > 0 && !empty($data['speechBubble']['position']) && !empty($data['speechBubble']['content'])) {
+                    $data['speechBubble']['exercise_id'] = $exercise->id;
+                    $this->exerciseSpeechBubbleService->save($data['speechBubble']);
+                }
+            }
+
+            if ($exercise->type == Exercise::$types['DIALOGUE']) {
+                ExerciseDialogueService::save(json_decode($data['conversations'], true), $fields);
             }
 
             if (
@@ -53,7 +62,12 @@ class CourseLessonExerciseService
                 $exercise->type == Exercise::$types['IMAGE_SELECT_ANSWER']
                 ||
                 $exercise->type == Exercise::$types['INDICATE_CORRECT_ANSWERS']
+                ||
+                $exercise->type == Exercise::$types['QUESTION_TRANS']
             ) {
+                if (is_string($data['answers'])) {
+                    $data['answers'] = json_decode($data['answers'], true);
+                }
                 $this->exerciseQuestionAnswersService->save($data['answers'], $fields);
             }
 

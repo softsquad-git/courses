@@ -32,6 +32,16 @@ class DfSettingsAppSeeder extends Seeder
                 'name' => 'duration_promotion',
                 'type' => SettingApp::$typeValue['txt'],
                 'value' => ''
+            ],
+            [
+                'name' => 'success_sound',
+                'type' => SettingApp::$typeValue['file'],
+                'value' => ''
+            ],
+            [
+                'name' => 'error_sound',
+                'type' => SettingApp::$typeValue['file'],
+                'value' => ''
             ]
         ];
 

@@ -26,3 +26,4 @@ Route::group(['prefix' => 'home', 'namespace' => 'Front\Home'], function () {
     Route::get('words', 'HomeWordsController');
     Route::get('images', 'HomeImagesController');
 });
+Route::get('settings-app', 'Front\Settings\SettingController');

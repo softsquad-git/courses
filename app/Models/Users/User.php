@@ -21,6 +21,8 @@ use Laravel\Passport\HasApiTokens;
  * @property string avatarImage
  * @method static orderBy(string $string, string $ordering)
  * @method static create(array $array)
+ * @property string|null phone
+ * @property bool is_premium
  */
 class User extends Authenticatable
 {
@@ -51,7 +53,9 @@ class User extends Authenticatable
         'role',
         'is_terms',
         'is_newsletter',
-        'avatar'
+        'avatar',
+        'phone',
+        'is_premium'
     ];
 
     /**
@@ -86,7 +90,8 @@ class User extends Authenticatable
             return asset(self::$fileDir.$this->avatar);
         }
 
-        return asset(self::$fileDir.'df.png');
+        //return asset(self::$fileDir.'df.png');
+        return 'http://127.0.0.1:8002/assets/data/home/2QA3r7KbtZ6KGsEUND8seY4fERBe6CuY.webp';
     }
 
     /**

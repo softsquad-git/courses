@@ -2,7 +2,9 @@
 
 namespace App\Models\Courses\Exercises;
 
+use App\Models\Courses\Exercises\Dialogue\Dialogue;
 use App\Models\Courses\Lesson;
+use App\Models\Exercises\ExerciseQuestionTrans;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,12 +31,13 @@ class Exercise extends Model
         'LISTEN_ANSWER_QUESTION' => 2,           // xx
         'LISTEN_CHOOSE_ANSWER' => 3,             // xx
         'IMAGE_SELECT_ANSWER' => 4,              // xx
-        'QUESTION_SELECT_ANSWER' => 5,           // ?
+        'QUESTION_TRANS' => 5,                   // ?  Odpowiedz na pytanie (pytanie z tłumaczeniem)
         'INDICATE_CORRECT_ANSWERS' => 6,         // xx wskaż prawidłowe odpowiedzi (można kilka)
         'MATCH_WORDS_PAIRS' => 7,                // ?  połącz słowa w pary
         'ANSWER_QUESTION_BOOL' => 8,             // xx dotyczy ćwiczenia 10 w briefie
         'TIP' => 9,                              // xx wskazówka
-        'EXAMPLE_SENTENCES' => 10                // xx przykłady zdać
+        'EXAMPLE_SENTENCES' => 10,               // xx przykłady zdań
+        'DIALOGUE' => 11,                        // xx dialog
     ];
 
     /**
@@ -81,11 +84,12 @@ class Exercise extends Model
             2 => ExerciseListenAnswerQuestion::class,
             3 => ExerciseListenChooseAnswer::class,
             4 => ExerciseImageAnswer::class,
-            5 => ExerciseQuestionAnswer::class,
+            5 => ExerciseQuestionTrans::class,
             6 => ExerciseIndicateCorrectAnswer::class,
             8 => ExerciseQuestionTrueOrFalse::class,
             9 => ExerciseTip::class,
-            10 => ExerciseExampleSentence::class
+            10 => ExerciseExampleSentence::class,
+            11 => Dialogue::class
         };
 
         return $this->hasOne($object, 'exercise_id')->withDefault();

@@ -50,15 +50,17 @@ class CourseLessonExerciseController extends Controller
     /**
      * @param CourseLessonExerciseRequest $request
      * @param int $lessonId
-     * @return Application|Factory|View|RedirectResponse
+     * @return Application|Factory|View|JsonResponse
      * @throws Exception
      */
-    public function create(CourseLessonExerciseRequest $request, int $lessonId): Application|Factory|View|RedirectResponse
+    public function create(CourseLessonExerciseRequest $request, int $lessonId): JsonResponse|Application|Factory|View
     {
         if ($request->isMethod('POST')) {
             $this->courseLessonExerciseService->save($request->all());
 
-            return redirect()->back();
+            return response()->json([
+                'success' => 1
+            ], 201);
         }
 
         return \view('admin.courses.lessons.exercises.form', [

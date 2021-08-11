@@ -2,6 +2,7 @@
 
 namespace App\Services\Courses\Exercises\Partials;
 
+use App\Models\Courses\Exercises\Dialogue\Dialogue;
 use App\Models\Courses\Exercises\Exercise;
 use App\Models\Courses\Exercises\ExerciseExampleSentence;
 use App\Models\Courses\Exercises\ExerciseImageAnswer;
@@ -12,6 +13,7 @@ use App\Models\Courses\Exercises\ExerciseListenChooseAnswer;
 use App\Models\Courses\Exercises\ExerciseQuestionAnswer;
 use App\Models\Courses\Exercises\ExerciseQuestionTrueOrFalse;
 use App\Models\Courses\Exercises\ExerciseTip;
+use App\Models\Exercises\ExerciseQuestionTrans;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
@@ -43,6 +45,14 @@ final class ExerciseDataFieldsService extends ExerciseMediaService
             $data['sound_file'] = $this->uploadSoundFile($data['sound_file']);
         }
 
+        if (isset($data['interlocutor_one_image']) && !empty($data['interlocutor_one_image'])) {
+            $data['interlocutor_one_image'] = $this->uploadImage($data['interlocutor_one_image']);
+        }
+
+        if (isset($data['interlocutor_two_image']) && !empty($data['interlocutor_two_image'])) {
+            $data['interlocutor_two_image'] = $this->uploadImage($data['interlocutor_two_image']);
+        }
+
         if (!isset($data['is_true'])) {
             $data['is_true'] = 0;
         }
@@ -62,12 +72,13 @@ final class ExerciseDataFieldsService extends ExerciseMediaService
             Exercise::$types['IMAGE_TXT']                           => new ExerciseImageTxt(),
             Exercise::$types['LISTEN_ANSWER_QUESTION']              => new ExerciseListenAnswerQuestion(),
             Exercise::$types['LISTEN_CHOOSE_ANSWER']                => new ExerciseListenChooseAnswer(),
-            Exercise::$types['QUESTION_SELECT_ANSWER']              => new ExerciseQuestionAnswer(),
+            Exercise::$types['QUESTION_TRANS']                      => new ExerciseQuestionTrans(),
             Exercise::$types['IMAGE_SELECT_ANSWER']                 => new ExerciseImageAnswer(),
             Exercise::$types['EXAMPLE_SENTENCES']                   => new ExerciseExampleSentence(),
             Exercise::$types['TIP']                                 => new ExerciseTip(),
             Exercise::$types['INDICATE_CORRECT_ANSWERS']            => new ExerciseIndicateCorrectAnswer(),
             Exercise::$types['ANSWER_QUESTION_BOOL']                => new ExerciseQuestionTrueOrFalse(),
+            Exercise::$types['DIALOGUE']                            => new Dialogue(),
             default                                                 => null
         };
 

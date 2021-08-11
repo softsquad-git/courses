@@ -8,18 +8,19 @@
                 <a href="{{ route('admin.setting.application') }}" class="btn btn-sm btn-outline-primary">Ustawienia apliacji</a>
 
                 <h4 class="mt-5">Dane podstawowe</h4>
-                <form method="post" action="{{ route('admin.setting.account') }}">
+                <form method="post" action="{{ route('admin.setting.change_basic_data') }}">
                     @csrf
+                    @method('PATCH')
                     <div class="row form-group">
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="name" class="col-form-label">Imię</label>
-                                    <input type="text" name="name" id="name" class="form-control">
+                                    <input type="text" name="first_name" id="name" class="form-control">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="name" class="col-form-label">Nazwisko</label>
-                                    <input type="text" name="name" id="name" class="form-control">
+                                    <input type="text" name="last_name" id="name" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -34,8 +35,9 @@
                 </form>
 
                 <h4 class="mt-5">Hasło</h4>
-                <form method="post" action="">
+                <form method="post" action="{{ route('admin.setting.change_password') }}">
                     @csrf
+                    @method('PATCH')
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label for="old_password" class="col-form-label">Obecne hasło</label>

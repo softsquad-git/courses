@@ -2,6 +2,7 @@
 
 namespace App\Models\Subscriptions;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,4 +40,17 @@ class  Subscription extends Model
         'month' => 'Miesiąc',
         'year' => 'Rok'
     ];
+
+    /**
+     * @return Carbon|null
+     */
+    public function getExpiredAt(): ?Carbon
+    {
+        return match ($this->unit) {
+            self::$units['day'] => Carbon::now()->addDay(),
+            self::$units['month'] => Carbon::now()->addMonth(),
+            self::$units['year'] => Carbon::now()->addYear(),
+            default => null,
+        };
+    }
 }

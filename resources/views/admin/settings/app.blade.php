@@ -11,7 +11,10 @@
 
                 <div class="mt-3">
                     @foreach($settingsApp as $key => $setting)
-                        <form method="post" action="" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('admin.setting.application') }}" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" value="{{ $setting->name }}" name="name">
+                            <input type="hidden" value="{{ $setting->type }}" name="type">
                             <div class="form-group row">
                                 <div class="col-md-5">
                                     <h4 style="text-align: right;margin-top: 40px;">{{ __('admin.settings.'.$setting->name) }}</h4>
@@ -19,7 +22,7 @@
                                 <div class="col-md-5">
                                     @if($setting->type == \App\Models\Settings\SettingApp::$typeValue['txt'])
                                         <label for="value_{{$key}}" class="col-form-label">Wartość</label>
-                                        <input type="text" id="value_{{$key}}" class="form-control" name="value">
+                                        <input type="text" id="value_{{$key}}" value="{{ $setting->value }}" class="form-control" name="value">
                                     @endif
                                     @if($setting->type == \App\Models\Settings\SettingApp::$typeValue['file'])
                                         <label for="value_{{$key}}" class="col-form-label">Wartość</label>

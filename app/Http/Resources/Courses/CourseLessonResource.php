@@ -39,7 +39,7 @@ class CourseLessonResource extends JsonResource
                 'all' => $this->exercises->count(),
                 'percent' => $this->getPercentage($this->exercises->count(), $completed->count())
             ],
-            'is_premium' => $this->is_premium
+            'is_premium' => Auth::user()->is_premium ? 0 : $this->is_premium
         ];
     }
 

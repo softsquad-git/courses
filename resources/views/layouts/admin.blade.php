@@ -9,13 +9,11 @@
     <meta name="robots" content="noindex,nofollow">
     <title>@yield('title')</title>
     <link rel="icon" type="image/png" sizes="16x16" href="">
-    <link href="{{ asset('admin/assets/libs/flot/css/float-chart.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/main.css') }}" rel="stylesheet">
     <link href="{{ asset('fontello/css/fontello.css') }}" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <script src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -297,20 +295,7 @@
     </div>
 </div>
 
-<script src="{{ asset('admin/assets/libs/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js') }}"></script>
-<script src="{{ asset('admin/dist/js/waves.js') }}"></script>
-<script src="{{ asset('admin/dist/js/sidebarmenu.js') }}"></script>
-<script src="{{ asset('admin/dist/js/custom.min.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/flot/excanvas.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/flot/jquery.flot.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/flot/jquery.flot.pie.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/flot/jquery.flot.time.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/flot/jquery.flot.stack.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/flot/jquery.flot.crosshair.js') }}"></script>
-<script src="{{ asset('admin/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
-<script src="{{ asset('admin/dist/js/pages/chart/chart-page-init.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script>
     CKEDITOR.replaceClass = 'editor';
 </script>

@@ -1,7 +1,3 @@
-<div class="row form-group">
-    <div class="col-md-6">
-        <label class="col-form-label" for="sound_file">Plik dźwiękowy</label>
-        <input type="file" class="form-control" accept=".mp3" id="sound_file" name="exercise[sound_file]">
-    </div>
+<div id="app">
+    <three_-exercise-component type="{{request()->input('type')}}" save_url="{{ route('admin.exercise.create', ['lessonId' => $lessonId]) }}" lesson_id="{{$lessonId}}"></three_-exercise-component>
 </div>
-@include('admin.courses.lessons.exercises.templates.answers')

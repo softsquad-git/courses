@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Users\User;
 use App\Repositories\Users\UserRepository;
 use \Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends ApiController
@@ -33,10 +35,10 @@ class LoginController extends ApiController
 
             if (Hash::check($credentials['password'], $user->password)) {
                 $token = $user->createToken('Password Grant Client')->accessToken;
+
                 return $this->successResponse('Zalogowano pomyślnie', [
                     'access_token' => $token,
-                    'user_id' => $user->id,
-                    'name' => $user->name
+                    'user' => Auth::user()
                 ]);
             }
 
