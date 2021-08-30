@@ -244,7 +244,7 @@
                                                  href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span
                                 class="hide-menu">Płatności </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                            <li class="sidebar-item"><a href="form-basic.html" class="sidebar-link"><i
+                            <li class="sidebar-item"><a href="{{ route('admin.payments.index') }}" class="sidebar-link"><i
                                         class="mdi mdi-note-outline"></i><span class="hide-menu"> Lista
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.discount_codes') }}" class="sidebar-link"><i
@@ -284,12 +284,6 @@
         </div>
         <!-- End Sidebar scroll-->
     </aside>
-    <!-- ============================================================== -->
-    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
     <div class="page-wrapper">
         @yield('content')
     </div>

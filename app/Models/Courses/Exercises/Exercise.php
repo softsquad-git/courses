@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @package App\Models\Courses\Exercises
+ * @property int id
  * @property int lesson_id
  * @property int position
  * @property int type
@@ -38,6 +39,7 @@ class Exercise extends Model
         'TIP' => 9,                              // xx wskazówka
         'EXAMPLE_SENTENCES' => 10,               // xx przykłady zdań
         'DIALOGUE' => 11,                        // xx dialog
+        'FLASHCARD' => 12                        // xx fiszka
     ];
 
     /**
@@ -89,7 +91,8 @@ class Exercise extends Model
             8 => ExerciseQuestionTrueOrFalse::class,
             9 => ExerciseTip::class,
             10 => ExerciseExampleSentence::class,
-            11 => Dialogue::class
+            11 => Dialogue::class,
+            12 => ExerciseFlashcard::class
         };
 
         return $this->hasOne($object, 'exercise_id')->withDefault();

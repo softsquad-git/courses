@@ -82,4 +82,16 @@ class SettingApp extends Model
     {
         return __('trans.admin.settings.types.'.$this->type);
     }
+
+    /**
+     * @return string
+     */
+    public function getValue(): string
+    {
+        if ($this->type == self::$typeValue['file']) {
+            return asset(self::$fileDir.$this->value);
+        }
+
+        return $this->value;
+    }
 }

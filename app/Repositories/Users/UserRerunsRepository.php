@@ -6,6 +6,7 @@ use App\Models\Users\UserRerun;
 use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class UserRerunsRepository extends Repository
 {
@@ -35,5 +36,14 @@ class UserRerunsRepository extends Repository
         }
 
         return $data->paginate(20);
+    }
+
+    /**
+     * @param int $id
+     * @return UserRerun|null
+     */
+    public function nextRerun(int $id): UserRerun|null
+    {
+        return $this->model->where('id', '>', $id)->orderBy('id')->first();
     }
 }

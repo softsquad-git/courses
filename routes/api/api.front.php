@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'course', 'namespace' => 'Front', 'middleware' => 'auth:api'], function () {
    Route::get('levels', 'Levels\LevelController');
+   Route::get('change-level/{id}', 'Levels\LevelController@changeLevel');
    Route::group(['prefix' => 'courses', 'namespace' => 'Courses'], function () {
       Route::get('stat/{courseId}', 'CourseController@getStat');
+      Route::get('user-lesson-progress', 'LessonController@getUserLessonInfo');
    });
    Route::group(['prefix' => 'lessons', 'namespace' => 'Lessons'], function () {
        Route::get('', 'LessonController@all');

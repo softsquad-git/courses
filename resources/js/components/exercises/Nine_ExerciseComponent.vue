@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="save_url" method="post">
+<form @submit.prevent="save" method="post">
     <div class="form-group">
         <label for="content" class="col-form-label">Treść</label>
         <textarea class="form-control" v-model="data.content" id="content"></textarea>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="form-group mt-3">
-        <button @click="save" class="btn btn-sm btn-outline-primary">Zapisz</button>
+        <button class="btn btn-sm btn-outline-primary">Zapisz</button>
     </div>
 </form>
 </template>

@@ -73,4 +73,14 @@ class Lesson extends Model
     {
         return $this->hasMany(Exercise::class, 'lesson_id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function flashcards(): HasMany
+    {
+        return $this->exercises()->where([
+            'type' => Exercise::$types['FLASHCARD']
+        ]);
+    }
 }

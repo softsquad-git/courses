@@ -2,25 +2,19 @@
     <form method="post" @submit.prevent="save" enctype="multipart/form-data">
         <div class="row form-group">
             <div class="col-md-6">
-                <label class="col-form-label" for="txt">Słowo</label>
+                <label class="col-form-label" for="txt">Tekst</label>
                 <input type="text" class="form-control" v-model="data.txt" id="txt">
             </div>
             <div class="col-md-6">
-                <label for="txt_trans" class="col-form-label">Słowo przetłumaczone</label>
-                <input type="text" class="form-control" v-model="data.txt_trans" id="txt_trans">
+                <label for="txt_trans" class="col-form-label">Tekst przetłumaczony</label>
+                <input type="text" class="form-control" id="txt_trans" v-model="data.txt_trans">
             </div>
         </div>
         <div class="row form-group">
             <div class="col-md-6">
-                <label class="col-form-label" for="sentence">Zdanie</label>
-                <input type="text" class="form-control" v-model="data.sentence" id="sentence">
+                <label class="col-form-label" for="image">Zdjęcie</label>
+                <input type="file" class="form-control" id="image" v-on:change="changeImage">
             </div>
-            <div class="col-md-6">
-                <label for="sentence_trans" class="col-form-label">Zdanie przetłumaczone</label>
-                <input type="text" class="form-control" v-model="data.sentence_trans" id="sentence_trans">
-            </div>
-        </div>
-        <div class="row form-group">
             <div class="col-md-6">
                 <label class="col-form-label" for="sound_file">Plik dźwiękowy</label>
                 <input type="file" class="form-control" accept=".mp3" id="sound_file" v-on:change="changeSoundFile">
@@ -54,50 +48,51 @@
 
 <script>
 export default {
-    name: "Ten_ExerciseComponent",
+name: "Twelve_ExerciseComponent",
     data() {
-        return {
-            data: {
-                txt: '',
-                txt_trans: '',
-                sentence: '',
-                sentence_trans: '',
-                sound_file: '',
-                speechBubble: {
-                    position: '',
-                    content: ''
-                }
-            },
-            isSpeechBubble: false
-        }
+    return {
+        data: {
+            txt: '',
+            txt_trans: '',
+            image: '',
+            sound_file: '',
+            speechBubble: {
+                position: '',
+                content: ''
+            }
+        },
+        isSpeechBubble: false
+    }
+    },
+    props: {
+        type: '',
+        save_url: '',
+        lesson_id: ''
     },
     methods: {
+        changeImage(e) {
+            this.data.image = e.target.files[0];
+        },
+        changeSoundFile(e) {
+            this.data.sound_file = e.target.files[0];
+        },
         save() {
             let formData = new FormData();
             formData.append('txt', this.data.txt);
             formData.append('txt_trans', this.data.txt_trans);
-            formData.append('sentence', this.data.sentence);
-            formData.append('sentence_trans', this.data.sentence_trans);
-            formData.append('sound_file', this.data.sound_file);
+            formData.append('image', this.data.image, this.data.image.name);
+            formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
             formData.append('type', this.type);
             formData.append('lesson_id', this.lesson_id);
             formData.append('speechBubble', this.data.speechBubble);
 
             this.$axios.post(this.save_url, formData)
                 .then((data) => {
-                    //
+                    console.log(data);
                 }).catch((error) => {
                 //
             })
-        },
-        changeSoundFile(e) {
-            this.data.sound_file = e.target.files[0];
         }
-    },
-    props: {
-        type: '',
-        save_url: '',
-        lesson_id: ''
     }
 }
 </script>

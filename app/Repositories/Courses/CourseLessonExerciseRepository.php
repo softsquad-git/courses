@@ -66,13 +66,20 @@ class CourseLessonExerciseRepository extends Repository
     /**
      * @param int $lessonId
      * @param int $position
+     * @param int|null $type
      * @return Exercise|null
      */
-    public function findExercise(int $lessonId, int $position): Exercise|null
+    public function findExercise(int $lessonId, int $position, int $type = null): Exercise|null
     {
-        return Exercise::where([
+        $item = Exercise::where([
             'lesson_id' => $lessonId,
             'position' => $position
-        ])->first();
+        ]);
+
+        if ($type) {
+            $item->where(['type' => $type]);
+        }
+
+        return $item->first();
     }
 }

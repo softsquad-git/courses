@@ -26,7 +26,7 @@ class SettingController extends ApiController
 
         $items = [];
         foreach ($data as $datum) {
-            $items[$datum->name] = $datum->value;
+            $items[$datum->name] = $datum->getValue();
         }
 
         return $this->successResponse('Ustawienia aplikacji', [

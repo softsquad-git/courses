@@ -58,6 +58,17 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
                 Route::match(['get', 'post'], 'create/{lessonId}', 'CourseLessonExerciseController@create')
                     ->name('admin.exercise.create');
             });
+
+            Route::group(['prefix' => 'flashcards'], function () {
+               Route::get('/{lessonId}', 'CourseLessonFlashcardsController@index')
+                   ->name('admin.course.lessons.flashcards.index');
+               Route::match(['get', 'post'], 'create/{lessonId}', 'CourseLessonFlashcardsController@create')
+                   ->name('admin.course.lessons.flashcards.create');
+               Route::match(['get', 'post'], 'update/{id}', 'CourseLessonFlashcardsController@update')
+                   ->name('admin.course.lessons.flashcards.update');
+               Route::delete('remove/{id}', 'CourseLessonFlashcardsController@remove')
+                   ->name('admin.course.lessons.flashcards.remove');
+            });
         });
     });
     Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
@@ -82,6 +93,8 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
         Route::get('', 'NewsletterController@all');
     });
     Route::group(['prefix' => 'payments', 'namespace' => 'Payments'], function (){
+        Route::get('', 'PaymentController@index')
+            ->name('admin.payments.index');
 
         Route::group(['prefix' => 'subscriptions', 'namespace' => 'Subscriptions'], function () {
             Route::get('', 'SubscriptionController@all')

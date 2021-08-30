@@ -2,28 +2,49 @@
 
 namespace App\Http\Controllers\Front\Courses;
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
-use App\Repositories\Courses\CourseLessonRepository;
-use App\Repositories\Levels\LevelRepository;
+use App\Models\Courses\Exercises\Exercise;
+use App\Repositories\Courses\CourseLessonExerciseRepository;
+use App\Repositories\Courses\CourseLessonProgressRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class LessonController extends Controller
+class LessonController extends ApiController
 {
     public function __construct(
-        private CourseLessonRepository $courseLessonRepository,
-        private LevelRepository $levelRepository
+        private CourseLessonProgressRepository $courseLessonProgressRepository,
+        private CourseLessonExerciseRepository $courseLessonExerciseRepository
     )
     {
     }
 
-    public function index(Request $request)
+    public function getUserLessonInfo(Request $request): JsonResponse
     {
-        $lessons = $this->courseLessonRepository->findBy([]);
-        $levels = $this->levelRepository->findAll();
+        $lessonId = $request->get('lesson_id');
+        if (!$lessonId) {
+            return $this->badResponse('Brak parametru');
+        }
 
-        return view('front.account.lessons.index', [
-            'lessons' => $lessons,
-            'levels' => $levels
+        $exerciseId = $this->courseLessonProgressRepository->maxExerciseId(
+            Auth::id(),
+            $lessonId
+        );
+
+        $nextPosition = 0;
+
+        if ($exerciseId != 0) {
+            /**
+             * @var Exercise $exercise
+             */
+            $exercise = $this->courseLessonExerciseRepository->find($exerciseId);
+
+            $nextPosition = $exercise->position + 1;
+        }
+
+        return $this->successResponse('', [
+            'nextPosition' => $nextPosition
         ]);
     }
 }

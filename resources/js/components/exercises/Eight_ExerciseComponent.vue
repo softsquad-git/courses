@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="form-group mt-3">
-        <button @click="save" class="btn btn-sm btn-outline-primary">Zapisz</button>
+        <button type="submit" class="btn btn-sm btn-outline-primary">Zapisz</button>
     </div>
 </form>
 </template>
@@ -59,7 +59,6 @@ export default {
         save() {
             this.data.type = this.type;
             this.data.lesson_id = this.lesson_id;
-            this.data.answers = JSON.stringify(this.$refs.answers.$data.data);
 
             this.$axios.post(this.save_url, this.data)
                 .then((data) => {

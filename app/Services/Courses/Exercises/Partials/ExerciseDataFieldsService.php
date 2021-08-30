@@ -5,6 +5,7 @@ namespace App\Services\Courses\Exercises\Partials;
 use App\Models\Courses\Exercises\Dialogue\Dialogue;
 use App\Models\Courses\Exercises\Exercise;
 use App\Models\Courses\Exercises\ExerciseExampleSentence;
+use App\Models\Courses\Exercises\ExerciseFlashcard;
 use App\Models\Courses\Exercises\ExerciseImageAnswer;
 use App\Models\Courses\Exercises\ExerciseImageTxt;
 use App\Models\Courses\Exercises\ExerciseIndicateCorrectAnswer;
@@ -79,6 +80,7 @@ final class ExerciseDataFieldsService extends ExerciseMediaService
             Exercise::$types['INDICATE_CORRECT_ANSWERS']            => new ExerciseIndicateCorrectAnswer(),
             Exercise::$types['ANSWER_QUESTION_BOOL']                => new ExerciseQuestionTrueOrFalse(),
             Exercise::$types['DIALOGUE']                            => new Dialogue(),
+            Exercise::$types['FLASHCARD']                           => new ExerciseFlashcard(),
             default                                                 => null
         };
 

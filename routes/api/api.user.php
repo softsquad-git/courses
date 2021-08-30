@@ -8,6 +8,9 @@ Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
             Route::get('', 'UserRerunsController@all');
             Route::post('create', 'UserRerunsController@create');
             Route::delete('remove/{id}', 'UserRerunsController@remove');
+            Route::get('check/{exerciseId}', 'UserRerunsController@check');
+            Route::get('first', 'UserRerunsController@firstRerun');
+            Route::get('next/{currentId}', 'UserRerunsController@nextRerun');
         });
     });
     Route::group(['prefix' => 'payments', 'namespace' => 'Payments'], function () {

@@ -38,6 +38,6 @@ class PaymentsRepository extends Repository
             return $data->get();
         }
 
-        return $data->pagiante($this->pagination);
+        return $data->paginate($this->pagination);
     }
 }

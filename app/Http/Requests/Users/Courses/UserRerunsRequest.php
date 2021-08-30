@@ -18,12 +18,10 @@ class UserRerunsRequest extends FormRequest
     /**
      * @return array
      */
-    #[ArrayShape(['txt' => "string", 'txt_trans' => "string", 'sound_file' => "string"])] public function rules(): array
+    #[ArrayShape(['exercise_id' => 'int'])] public function rules(): array
     {
         return [
-            'txt' => 'required|string',
-            'txt_trans' => 'required|string',
-            'sound_file' => 'required|string'
+            'exercise_id' => 'required|integer'
         ];
     }
 }

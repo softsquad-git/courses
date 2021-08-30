@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Users\Courses;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\Courses\UserRerunsRequest;
 use App\Http\Resources\Users\UserRerunsResource;
+use App\Models\Users\UserRerun;
 use App\Repositories\Users\UserRerunsRepository;
 use App\Services\Users\UserRerunsService;
 use Illuminate\Http\JsonResponse;
@@ -32,7 +32,7 @@ class UserRerunsController extends ApiController
     public function all(): JsonResponse|AnonymousResourceCollection
     {
         try {
-            $data = $this->userRerunsRepository->findBy(['user_id' => Auth::id()], true);
+            $data = $this->userRerunsRepository->findBy(['user_id' => Auth::id()], false);
 
             return UserRerunsResource::collection($data);
         } catch (Exception $e) {
@@ -72,4 +72,71 @@ class UserRerunsController extends ApiController
             return $this->errorResponse($e);
         }
     }
+
+    /**
+     * @param int $exerciseId
+     * @return JsonResponse
+     */
+    public function check(int $exerciseId): JsonResponse
+    {
+        try {
+            /**
+             * @var UserRerun|null $item
+             */
+            $item = $this->userRerunsRepository->findOneBy([
+                'user_id' => Auth::id(),
+                'exercise_id' => $exerciseId
+            ]);
+
+            if ($item) {
+                return response()->json([
+                    'success' => 1,
+                    'message' => 'Usuń z powtórek',
+                    'code' => true,
+                    'rerunId' => $item->id
+                ], 200);
+            }
+
+            return response()->json([
+                'success' => 1,
+                'message' => 'Dodaj do powtórek',
+                'code' => false,
+                'rerunId' => null
+            ], 200);
+        } catch (Exception $e) {
+            return $this->errorResponse($e);
+        }
+    }
+
+    /**
+     * @return UserRerunsResource
+     */
+    public function firstRerun(): UserRerunsResource
+    {
+        $item = $this->userRerunsRepository->findOneBy([
+            'user_id' => Auth::id()
+        ]);
+
+        return new UserRerunsResource($item);
+    }
+
+    /**
+     * @param int $currentId
+     * @return UserRerunsResource|JsonResponse
+     */
+    public function nextRerun(int $currentId): UserRerunsResource|JsonResponse
+    {
+        $item = $this->userRerunsRepository->nextRerun($currentId);
+
+        if (!$item) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'Brak kolejnej powtórki',
+                'code' => 404
+            ], 200);
+        }
+
+        return new UserRerunsResource($item);
+    }
+
 }

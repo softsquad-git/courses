@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Front\Courses;
 use App\Http\Controllers\ApiController;
 use App\Repositories\Courses\CourseLessonRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CourseController extends ApiController
 {

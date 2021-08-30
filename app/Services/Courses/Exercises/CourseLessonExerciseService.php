@@ -44,7 +44,7 @@ class CourseLessonExerciseService
                 if (is_string($data['speechBubble'])) {
                     $data['speechBubble'] = json_decode($data['speechBubble'], true);
                 }
-                if (count($data['speechBubble']) > 0 && !empty($data['speechBubble']['position']) && !empty($data['speechBubble']['content'])) {
+                if (isset($data['speechBubble']) && count($data['speechBubble']) > 0 && !empty($data['speechBubble']['position']) && !empty($data['speechBubble']['content'])) {
                     $data['speechBubble']['exercise_id'] = $exercise->id;
                     $this->exerciseSpeechBubbleService->save($data['speechBubble']);
                 }

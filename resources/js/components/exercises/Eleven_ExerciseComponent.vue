@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="form-group" style="margin-top: 40px">
-            <button @click="save" class="btn btn-sm btn-outline-primary">Zapisz</button>
+            <button class="btn btn-sm btn-outline-primary">Zapisz</button>
         </div>
     </form>
 </template>

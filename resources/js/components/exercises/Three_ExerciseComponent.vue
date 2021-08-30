@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="form-group mt-3">
-        <button @click="save" class="btn btn-sm btn-outline-primary">Zapisz</button>
+        <button class="btn btn-sm btn-outline-primary">Zapisz</button>
     </div>
 </form>
 </template>
