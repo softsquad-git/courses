@@ -34,9 +34,6 @@
                                     <td><img src="{{ $item->getImage() }}" alt="{{ $item->name }}" width="150px"></td>
                                     <td>{{ $item->exercises->count() }}</td>
                                     <td class="text-right">
-                                        <a href="{{ route('admin.course.lessons.flashcards.index', ['lessonId' => $item->id]) }}" title="Fiszki" class="btn btn-outline-primary btn-sm mr-2 btn-rounded">
-                                            <i class="icon icon-music"></i>
-                                        </a>
                                         <a href="{{ route('admin.exercises', ['lessonId' => $item->id]) }}" title="Ćwiczenia" class="btn btn-outline-primary btn-sm mr-2 btn-rounded">
                                             <i class="icon icon-tencent-weibo"></i>
                                         </a>

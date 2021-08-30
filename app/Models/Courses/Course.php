@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int level_id
  * @property int language_id
  * @property bool is_active
+ * @property int id
  */
 class Course extends Model
 {

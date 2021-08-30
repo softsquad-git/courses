@@ -30,6 +30,9 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="is_default"><input type="checkbox" name="is_default" id="is_default" value="0"> Domyślny poziom</label>
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-outline-success btn-sm btn-rounded mr-2">
                             Zapisz
                         </button>

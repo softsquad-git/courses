@@ -38,7 +38,7 @@ class LoginController extends ApiController
 
                 return $this->successResponse('Zalogowano pomyślnie', [
                     'access_token' => $token,
-                    'user' => Auth::user()
+                    'user' => $user
                 ]);
             }
 

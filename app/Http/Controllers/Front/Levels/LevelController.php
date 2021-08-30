@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front\Levels;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\Levels\LevelResource;
+use App\Models\Courses\Course;
+use App\Models\Courses\Level;
 use App\Repositories\Courses\CourseRepository;
 use App\Repositories\Levels\LevelRepository;
 use \Exception;
@@ -43,6 +45,9 @@ class LevelController extends ApiController
     public function changeLevel(int $id): JsonResponse
     {
         try {
+            /**
+             * @var Course|null $course
+             */
             $course = $this->courseRepository->findOneBy([
                 'level_id' => $id
             ]);
@@ -57,5 +62,30 @@ class LevelController extends ApiController
         } catch (Exception $e) {
             return $this->errorResponse($e);
         }
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function defaultLevel(): JsonResponse
+    {
+        /**
+         * @var Level $item
+         */
+        $item = $this->levelRepository->findOneBy([
+            'is_default' => 1
+        ]);
+
+        /**
+         * @var Course|null $course
+         */
+        $course = $this->courseRepository->findOneBy([
+            'level_id' => $item->id
+        ]);
+
+        return $this->successResponse('Domyślny poziom', [
+            'item' => $item,
+            'courseId' => $course->id
+        ]);
     }
 }

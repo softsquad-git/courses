@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @package App\Models\Courses
  * @property string name
  * @property string|null description
+ * @property int id
+ * @property bool|null is_default
  */
 class Level extends Model
 {
@@ -25,7 +27,8 @@ class Level extends Model
      */
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'is_default'
     ];
 
     /**

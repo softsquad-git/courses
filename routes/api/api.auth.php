@@ -8,5 +8,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('logged-user', 'AuthController@findLoggedUser');
+        Route::post('logout', 'AuthController@logout');
     });
 });
