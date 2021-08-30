@@ -49,7 +49,8 @@ class ExerciseListenAnswerQuestion extends Model
      */
     public function answers(): HasMany
     {
-        return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id');
+        return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id')
+            ->where('exercise_id', $this->exercise_id);
     }
 
     /**

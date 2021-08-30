@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int exercise_id
+ * @property string question
+ * @property string question_trans
+ */
 class ExerciseQuestionTrans extends Model
 {
     use HasFactory;
@@ -40,6 +45,7 @@ class ExerciseQuestionTrans extends Model
      */
     public function answers(): HasMany
     {
-        return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id');
+        return $this->hasMany(ExerciseListenAnswerQuestionAnswer::class, 'question_id')
+            ->where('exercise_id', $this->exercise_id);
     }
 }
