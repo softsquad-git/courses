@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string image
  * @property int position
  * @method static find(int $lessonId)
- * @method static where(int[] $array)
+ * @property int id
  */
 class Lesson extends Model
 {

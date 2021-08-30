@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Courses;
 
+use App\Models\Courses\Exercises\Exercise;
 use App\Models\Courses\LessonFlashcard;
 use App\Repositories\Repository;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -31,5 +32,17 @@ class CourseLessonFlashcardsRepository extends Repository
         }
 
         return $data->paginate($this->pagination);
+    }
+
+    /**
+     * @param int $lessonId
+     * @return Exercise|null
+     */
+    public function firstFlashcardByLesson(int $lessonId): Exercise|null
+    {
+        return Exercise::where([
+            'lesson_id' => $lessonId,
+            'type' => Exercise::$types['FLASHCARD']
+        ])->first();
     }
 }

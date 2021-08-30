@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int type
  * @method static create(array $data)
  * @method static orderBy(string $column, string $value)
- * @method static where(int[] $array)
  */
 class Exercise extends Model
 {

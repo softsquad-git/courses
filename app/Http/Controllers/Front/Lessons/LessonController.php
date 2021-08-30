@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Lessons;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\Courses\CourseLessonResource;
+use App\Models\Courses\Lesson;
 use App\Repositories\Courses\CourseLessonRepository;
 use Illuminate\Http\Request;
 use \Exception;
@@ -45,5 +46,28 @@ class LessonController extends ApiController
         } catch (Exception $e) {
             return $this->errorResponse($e);
         }
+    }
+
+    /**
+     * @param int $lessonId
+     * @param int $courseId
+     * @return JsonResponse
+     */
+    public function nextLesson(int $lessonId, int $courseId): JsonResponse
+    {
+        /**
+         * @var Lesson|null $nextLesson
+         */
+        $nextLesson = $this->courseLessonRepository->findNextLesson($lessonId, $courseId);
+        if (!$nextLesson) {
+            return $this->successResponse('Brak kolejnej lekcji', [
+                'code' => 444
+            ]);
+        }
+
+        return $this->successResponse($nextLesson->name, [
+            'lesson' => $nextLesson,
+            'lessonId' => $nextLesson->id
+        ]);
     }
 }

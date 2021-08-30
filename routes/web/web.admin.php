@@ -57,6 +57,8 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
                     ->name('admin.exercises');
                 Route::match(['get', 'post'], 'create/{lessonId}', 'CourseLessonExerciseController@create')
                     ->name('admin.exercise.create');
+                Route::delete('remove/{id}', 'CourseLessonExerciseController@remove')
+                    ->name('admin.exercise.remove');
             });
 
             Route::group(['prefix' => 'flashcards'], function () {
@@ -161,5 +163,15 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
             Route::delete('remove/{id}', 'HomeImagesController@remove')
                 ->name('admin.home.images.remove');
         });
+    });
+
+    Route::group(['prefix' => 'pages', 'namespace' => 'Pages'], function () {
+
+       Route::group(['prefix' => 'static'], function () {
+          Route::get('', 'StaticPageController@index')
+              ->name('admin.pages.static_pages.index');
+          Route::match(['get', 'post'], 'update/{id}', 'StaticPageController@update')
+              ->name('admin.pages.static_pages.update');
+       });
     });
 });

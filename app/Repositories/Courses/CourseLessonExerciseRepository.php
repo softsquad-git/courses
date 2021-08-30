@@ -82,4 +82,16 @@ class CourseLessonExerciseRepository extends Repository
 
         return $item->first();
     }
+
+    /**
+     * @param int $id
+     * @param int $type
+     * @return Exercise|null
+     */
+    public function next(int $id, int $type): Exercise|null
+    {
+        return Exercise::where('id', '>', $id)
+            ->where('type', $type)
+            ->first();
+    }
 }

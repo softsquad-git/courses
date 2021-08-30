@@ -8,9 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title mb-0">
-                            <a href="{{ route('admin.exercise.create', ['lessonId' => $lessonId]) }}"
-                               class="btn btn-sm btn-outline-success float-right btn-rounded"><i
-                                    class="icon icon-plus"></i></a>
+
                         </h5>
                     </div>
                     @if(count($data) > 0)
@@ -18,7 +16,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Rodzaj</th>
+                                <th scope="col">Nazwa</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -26,18 +24,11 @@
                             @foreach($data as $key => $item)
                                 <tr>
                                     <th scope="row">{{ $key + 1 }}</th>
-                                    <th>{{ __('exercises.types.'.$item->type) }}</th>
+                                    <td>{{ __('admin.static_pages.'.$item->name) }}</td>
                                     <td class="text-right">
-                                        <a href="{{ route('admin.course.lesson.update', ['id' => $item->id]) }}" class="btn btn-outline-warning btn-sm mr-2 btn-rounded">
+                                        <a href="{{ route('admin.pages.static_pages.update', ['id' => $item->id]) }}" class="btn btn-outline-warning btn-sm mr-2 btn-rounded">
                                             <i class="icon icon-pencil"></i>
                                         </a>
-                                        <form class="remove-form" style="display: inline-block" method="POST" action="{{ route('admin.exercise.remove', ['id' => $item->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger btn-sm btn-rounded">
-                                                <i class="icon icon-trash"></i>
-                                            </button>
-                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

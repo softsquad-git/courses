@@ -36,4 +36,16 @@ class CourseLessonRepository extends Repository
 
         return $data->paginate($this->pagination);
     }
+
+    /**
+     * @param int $lessonId
+     * @param int $courseId
+     * @return Lesson|null
+     */
+    public function findNextLesson(int $lessonId, int $courseId): Lesson|null
+    {
+        return Lesson::where('id', '>', $lessonId)
+            ->where('course_id', $courseId)
+            ->first();
+    }
 }

@@ -76,7 +76,22 @@ export default {
 
             this.$axios.post(this.save_url, formData)
                 .then((data) => {
+                    this.$swal.fire({
+                        title: 'Świetnie!',
+                        text: 'Ćwiczenie zostało dodane',
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Dodaj kolejne ćwiczenie',
 
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        } else if (result.dismiss === this.$swal.DismissReason.cancel) {
+
+                        }
+                    })
                 }).catch((error) => {
 
             })

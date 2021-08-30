@@ -11,7 +11,7 @@
             </div>
         </div>
         <answers-component ref="answers"></answers-component>
-        <div class="form-group" style="margin-top: 30px">
+        <div class="form-group" style="margin-top: 20px">
             <label for="isSpeechBubble">
                 <input id="isSpeechBubble" type="checkbox" v-model="isSpeechBubble"> Dodaj dymek
             </label>
@@ -63,7 +63,22 @@ export default {
             this.data.speechBubble = JSON.stringify(this.data.speechBubble);
             this.$axios.post(this.save_url, this.data)
                 .then((data) => {
+                    this.$swal.fire({
+                        title: 'Świetnie!',
+                        text: 'Ćwiczenie zostało dodane',
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Dodaj kolejne ćwiczenie',
 
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        } else if (result.dismiss === this.$swal.DismissReason.cancel) {
+
+                        }
+                    })
                 }).catch((error) => {
 
             })

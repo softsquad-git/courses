@@ -13,6 +13,12 @@ Route::group(['prefix' => 'course', 'namespace' => 'Front', 'middleware' => 'aut
    Route::group(['prefix' => 'lessons', 'namespace' => 'Lessons'], function () {
        Route::get('', 'LessonController@all');
        Route::get('find/{id}', 'LessonController@find');
+       Route::get('next-lesson/{lessonId}/{courseId}', 'LessonController@nextLesson');
+
+       Route::group(['prefix' => 'flashcards'], function () {
+           Route::get('first/{lessonId}', 'LessonFlashcardController@firstFlashcardByLesson');
+           Route::get('next/{id}', 'LessonFlashcardController@nextFlashcard');
+       });
    });
     Route::group(['prefix' => 'payments', 'namespace' => 'Payments'], function () {
         Route::get('subscriptions', 'SubscriptionController');
@@ -20,7 +26,6 @@ Route::group(['prefix' => 'course', 'namespace' => 'Front', 'middleware' => 'aut
     Route::group(['prefix' => 'exercises', 'namespace' => 'Exercises'], function () {
        Route::get('find', 'ExerciseController@find');
     });
-
 });
 Route::group(['prefix' => 'home', 'namespace' => 'Front\Home'], function () {
     Route::get('information', 'HomeInformationController');
@@ -30,3 +35,10 @@ Route::group(['prefix' => 'home', 'namespace' => 'Front\Home'], function () {
     Route::get('images', 'HomeImagesController');
 });
 Route::get('settings-app', 'Front\Settings\SettingController');
+
+Route::group(['prefix' => 'pages', 'namespace' => 'Front\Pages'], function () {
+
+    Route::group(['prefix' => 'static'], function () {
+        Route::get('find-by-page/{name}', 'StaticPageController@findByPage');
+    });
+});
