@@ -20,7 +20,8 @@ class CourseLessonExerciseResource extends JsonResource
             'type' => $this->type,
             'position' => $this->position,
             'template' => $this->template($this->type, $this->template),
-            'speechBubble' => new CourseExerciseSpeechBubbleResource($this->speechBubbles)
+            'speech_bubble_top' => $this->speech_bubble_top,
+            'speech_bubble_bottom' => $this->speech_bubble_bottom
         ];
     }
 

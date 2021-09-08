@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int price
  * @property int price_promo
  * @property string unit
+ * @property int id
+ * @property bool is_best_offer
  */
 class  Subscription extends Model
 {
@@ -29,28 +31,31 @@ class  Subscription extends Model
         'name',
         'price',
         'price_promo',
-        'unit'
+        'unit',
+        'is_best_offer'
     ];
 
     /**
-     * @var array|string[] $units
+     * @return float|int|null
      */
-    public static array $units = [
-        'day' => 'Dzień',
-        'month' => 'Miesiąc',
-        'year' => 'Rok'
-    ];
-
-    /**
-     * @return Carbon|null
-     */
-    public function getExpiredAt(): ?Carbon
+    public function getPrice(): float|int|null
     {
-        return match ($this->unit) {
-            self::$units['day'] => Carbon::now()->addDay(),
-            self::$units['month'] => Carbon::now()->addMonth(),
-            self::$units['year'] => Carbon::now()->addYear(),
-            default => null,
-        };
+        if ($this->price) {
+            return $this->price / 100;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getPricePromo(): float|int|null
+    {
+        if ($this->price_promo) {
+            return $this->price_promo / 100;
+        }
+
+        return null;
     }
 }

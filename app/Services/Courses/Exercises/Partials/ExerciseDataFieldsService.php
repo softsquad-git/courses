@@ -4,6 +4,7 @@ namespace App\Services\Courses\Exercises\Partials;
 
 use App\Models\Courses\Exercises\Dialogue\Dialogue;
 use App\Models\Courses\Exercises\Exercise;
+use App\Models\Courses\Exercises\ExerciseCompleteSentence;
 use App\Models\Courses\Exercises\ExerciseExampleSentence;
 use App\Models\Courses\Exercises\ExerciseFlashcard;
 use App\Models\Courses\Exercises\ExerciseImageAnswer;
@@ -81,6 +82,7 @@ final class ExerciseDataFieldsService extends ExerciseMediaService
             Exercise::$types['ANSWER_QUESTION_BOOL']                => new ExerciseQuestionTrueOrFalse(),
             Exercise::$types['DIALOGUE']                            => new Dialogue(),
             Exercise::$types['FLASHCARD']                           => new ExerciseFlashcard(),
+            Exercise::$types['COMPLETE_SENTENCE']                   => new ExerciseCompleteSentence(),
             default                                                 => null
         };
 

@@ -12,18 +12,19 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @package App\Models\Payments
+ * @property int id
  * @property int user_id
  * @property int amount
+ * @property int subscribe_id
+ * @property string payment_type
  * @property bool is_invoice
  * @property string|null company_name
- * @property string|null company_address
  * @property string|null nip
- * @property int course_id
- * @property string token
- * @property string status
- * @property array status_value
- * @property User user
- * @property int subscribe_id
+ * @property string|null company_address
+ * @property string|null payu_id
+ * @property string|null paypal_id
+ * @property int status
+ * @property int token
  * @method static create(array $data)
  */
 class Payment extends Model
@@ -35,8 +36,16 @@ class Payment extends Model
      */
     public static array $statuses = [
         'STARTED' => 1,
-        'CANCELED' => 2,
-        'FINISHED' => 3
+        'PAID' => 2,
+        'CANCEL' => 3,
+        'PENDING' => 4
+    ];
+    /**
+     * @var array|string[] $paymentTypes
+     */
+    public static array $paymentTypes = [
+        'payu' => 'payu',
+        'paypal' => 'paypal'
     ];
 
     /**
@@ -50,14 +59,16 @@ class Payment extends Model
     protected $fillable = [
         'user_id',
         'amount',
+        'subscribe_id',
+        'payment_type',
         'is_invoice',
         'company_name',
-        'company_address',
         'nip',
-        'token',
+        'company_address',
+        'payu_id',
+        'paypal_id',
         'status',
-        'payu_order_id',
-        'subscribe_id'
+        'token'
     ];
 
     /**

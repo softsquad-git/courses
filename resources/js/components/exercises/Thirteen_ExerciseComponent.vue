@@ -2,30 +2,16 @@
     <form method="post" @submit.prevent="save" enctype="multipart/form-data">
         <div class="row form-group">
             <div class="col-md-6">
-                <label class="col-form-label" for="txt">Słowo</label>
-                <input type="text" class="form-control" v-model="data.txt" id="txt">
-            </div>
-            <div class="col-md-6">
-                <label for="txt_trans" class="col-form-label">Słowo przetłumaczone</label>
-                <input type="text" class="form-control" v-model="data.txt_trans" id="txt_trans">
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-6">
                 <label class="col-form-label" for="sentence">Zdanie</label>
                 <input type="text" class="form-control" v-model="data.sentence" id="sentence">
+                <small>Słowo które wymaga uzupełnienia umieść pomiędzy {!! !!}</small>
             </div>
             <div class="col-md-6">
                 <label for="sentence_trans" class="col-form-label">Zdanie przetłumaczone</label>
                 <input type="text" class="form-control" v-model="data.sentence_trans" id="sentence_trans">
             </div>
         </div>
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label class="col-form-label" for="sound_file">Plik dźwiękowy</label>
-                <input type="file" class="form-control" accept=".mp3" id="sound_file" v-on:change="changeSoundFile">
-            </div>
-        </div>
+        <answers-component ref="answers"></answers-component>
         <div class="form-group row" style="margin-top: 20px">
             <div class="col-md-6 col-12">
                 <h4>Dymek na górze</h4>
@@ -45,35 +31,31 @@
 </template>
 
 <script>
+import AnswersComponent from "./answers/AnswersComponent";
 export default {
-    name: "Ten_ExerciseComponent",
+    name: "Thirteen_ExerciseComponent",
+    components: {AnswersComponent},
     data() {
         return {
             data: {
-                txt: '',
-                txt_trans: '',
                 sentence: '',
                 sentence_trans: '',
-                sound_file: '',
                 speech_bubble_top: '',
                 speech_bubble_bottom: ''
             },
         }
     },
+    props: {
+        type: '',
+        save_url: '',
+        lesson_id: ''
+    },
     methods: {
         save() {
-            let formData = new FormData();
-            formData.append('txt', this.data.txt);
-            formData.append('txt_trans', this.data.txt_trans);
-            formData.append('sentence', this.data.sentence);
-            formData.append('sentence_trans', this.data.sentence_trans);
-            formData.append('sound_file', this.data.sound_file);
-            formData.append('type', this.type);
-            formData.append('lesson_id', this.lesson_id);
-            formData.append('speech_bubble_top', this.data.speech_bubble_top);
-            formData.append('speech_bubble_bottom', this.data.speech_bubble_bottom);
-
-            this.$axios.post(this.save_url, formData)
+            this.data.type = this.type;
+            this.data.lesson_id = this.lesson_id;
+            this.data.answers = JSON.stringify(this.$refs.answers.$data.data);
+            this.$axios.post(this.save_url, this.data)
                 .then((data) => {
                     this.$swal.fire({
                         title: 'Świetnie!',
@@ -95,14 +77,6 @@ export default {
                 //
             })
         },
-        changeSoundFile(e) {
-            this.data.sound_file = e.target.files[0];
-        }
-    },
-    props: {
-        type: '',
-        save_url: '',
-        lesson_id: ''
     }
 }
 </script>

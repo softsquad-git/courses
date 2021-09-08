@@ -43,11 +43,11 @@ class PayuService
         $order['merchantPosId'] = OpenPayU_Configuration::getMerchantPosId();
         $order['description'] = 'Opłata abonamentu za kurs';
         $order['currencyCode'] = 'PLN';
-        $order['totalAmount'] = $payment->price;
+        $order['totalAmount'] = $payment->amount;
         $order['extOrderId'] = Str::random(4);
 
         $order['products'][0]['name'] = 'Abonament';
-        $order['products'][0]['unitPrice'] = $payment->price;
+        $order['products'][0]['unitPrice'] = $payment->amount;
         $order['products'][0]['quantity'] = 1;
 
         $order['buyer']['email'] = $payment->user?->email;
@@ -61,7 +61,7 @@ class PayuService
         }
 
         $response = $response->getResponse();
-        $payment->update(['payu_order_id' => $response->orderId]);
+        $payment->update(['payu_id' => $response->orderId]);
 
         return $response;
     }

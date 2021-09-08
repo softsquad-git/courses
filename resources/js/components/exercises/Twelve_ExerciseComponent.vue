@@ -20,24 +20,16 @@
                 <input type="file" class="form-control" accept=".mp3" id="sound_file" v-on:change="changeSoundFile">
             </div>
         </div>
-        <div class="form-group" style="margin-top: 20px">
-            <label for="isSpeechBubble">
-                <input id="isSpeechBubble" type="checkbox" v-model="isSpeechBubble"> Dodaj dymek
-            </label>
-            <div v-if="isSpeechBubble" class="speech-bubble">
-                <div class="row">
-                    <div class="col-md-2">
-                        <label for="bubblePosition" class="col-form-label">Pozycja</label>
-                        <select id="bubblePosition" v-model="data.speechBubble.position" class="form-control">
-                            <option value="top">Góra</option>
-                            <option value="bottome">Dół</option>
-                        </select>
-                    </div>
-                    <div class="col-md-10">
-                        <label for="bubbleContent" class="col-form-label">Treść</label>
-                        <textarea id="bubbleContent" class="form-control" rows="3" v-model="data.speechBubble.content"></textarea>
-                    </div>
-                </div>
+        <div class="form-group row" style="margin-top: 20px">
+            <div class="col-md-6 col-12">
+                <h4>Dymek na górze</h4>
+                <label for="topBubble" class="col-form-label">Treść</label>
+                <textarea id="topBubble" class="form-control" rows="3" v-model="data.speech_bubble_top"></textarea>
+            </div>
+            <div class="col-md-6 col-12">
+                <h4>Dymek na dole</h4>
+                <label for="bottomBubble" class="col-form-label">Treść</label>
+                <textarea id="bottomBubble" class="form-control" rows="3" v-model="data.speech_bubble_bottom"></textarea>
             </div>
         </div>
         <div class="form-group mt-3">
@@ -56,12 +48,9 @@ name: "Twelve_ExerciseComponent",
             txt_trans: '',
             image: '',
             sound_file: '',
-            speechBubble: {
-                position: '',
-                content: ''
-            }
+            speech_bubble_top: '',
+            speech_bubble_bottom: ''
         },
-        isSpeechBubble: false
     }
     },
     props: {
@@ -84,7 +73,8 @@ name: "Twelve_ExerciseComponent",
             formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
             formData.append('type', this.type);
             formData.append('lesson_id', this.lesson_id);
-            formData.append('speechBubble', this.data.speechBubble);
+            formData.append('speech_bubble_top', this.data.speech_bubble_top);
+            formData.append('speech_bubble_bottom', this.data.speech_bubble_bottom);
 
             this.$axios.post(this.save_url, formData)
                 .then((data) => {

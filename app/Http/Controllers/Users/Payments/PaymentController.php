@@ -66,10 +66,13 @@ class PaymentController extends ApiController
             }
 
             $res = $this->paymentService->payment($payment);
+            if ($res['success'] == 1) {
+                return $this->successResponse('Przekierowanie do bramki płatniczej', [
+                    'redirectUrl' => $res['url']
+                ]);
+            }
 
-            return $this->successResponse('Przekierowanie do bramki płatniczej', [
-                'redirectUrl' => $res['url']
-            ]);
+            return $this->badResponse('Płatność się nie powiodła. Spróbuj jeszcze raz. Jeśli problem się powtórzy skontaktuj się z nami');
         } catch (Exception $e) {
             return $this->errorResponse($e);
         }

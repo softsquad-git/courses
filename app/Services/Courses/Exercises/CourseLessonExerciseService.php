@@ -3,14 +3,12 @@
 namespace App\Services\Courses\Exercises;
 
 use App\Models\Courses\Exercises\Exercise;
-use App\Models\Courses\Exercises\ExerciseListenAnswerQuestion;
 use App\Repositories\Courses\CourseLessonExerciseRepository;
-use App\Repositories\Courses\CourseLessonRepository;
 use App\Services\Courses\Exercises\Partials\ExerciseDataFieldsService;
 use App\Services\Courses\Exercises\Partials\ExerciseDialogueService;
 use App\Services\Courses\Exercises\Partials\ExerciseQuestionAnswersService;
 use Illuminate\Support\Facades\DB;
-use \Exception;
+use Exception;
 
 class CourseLessonExerciseService
 {
@@ -18,7 +16,6 @@ class CourseLessonExerciseService
         private ExerciseDataFieldsService $exerciseDataFieldsService,
         private ExerciseQuestionAnswersService $exerciseQuestionAnswersService,
         private CourseLessonExerciseRepository $courseLessonExerciseRepository,
-        private ExerciseSpeechBubbleService $exerciseSpeechBubbleService
     )
     {
     }
@@ -40,16 +37,6 @@ class CourseLessonExerciseService
                 $exercise
             );
 
-            if (isset($data['speechBubble'])) {
-                if (is_string($data['speechBubble'])) {
-                    $data['speechBubble'] = json_decode($data['speechBubble'], true);
-                }
-                if (isset($data['speechBubble']) && count($data['speechBubble']) > 0 && !empty($data['speechBubble']['position']) && !empty($data['speechBubble']['content'])) {
-                    $data['speechBubble']['exercise_id'] = $exercise->id;
-                    $this->exerciseSpeechBubbleService->save($data['speechBubble']);
-                }
-            }
-
             if ($exercise->type == Exercise::$types['DIALOGUE']) {
                 ExerciseDialogueService::save(json_decode($data['conversations'], true), $fields);
             }
@@ -64,6 +51,8 @@ class CourseLessonExerciseService
                 $exercise->type == Exercise::$types['INDICATE_CORRECT_ANSWERS']
                 ||
                 $exercise->type == Exercise::$types['QUESTION_TRANS']
+                ||
+                $exercise->type == Exercise::$types['COMPLETE_SENTENCE']
             ) {
                 if (is_string($data['answers'])) {
                     $data['answers'] = json_decode($data['answers'], true);

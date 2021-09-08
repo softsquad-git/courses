@@ -1,16 +1,19 @@
 <?php
 
 namespace App\Services\Courses;
-use \App\Models\Users\UserLessonExerciseProgress as UserLessonExerciseProgressModel;
+use App\Models\Users\UserLessonExerciseProgress as UserLessonExerciseProgressModel;
 
 class UserLessonExerciseProgress
 {
+    /**
+     * @param array $data
+     * @return UserLessonExerciseProgressModel
+     */
     public function save(array $data): UserLessonExerciseProgressModel
     {
         $item = UserLessonExerciseProgressModel::where($data)->first();
-        if ($item) {
-            $item->delete();
-        }
+
+        $item?->delete();
 
         return UserLessonExerciseProgressModel::create($data);
     }

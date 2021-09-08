@@ -38,7 +38,8 @@ class Exercise extends Model
         'TIP' => 9,                              // xx wskazówka
         'EXAMPLE_SENTENCES' => 10,               // xx przykłady zdań
         'DIALOGUE' => 11,                        // xx dialog
-        'FLASHCARD' => 12                        // xx fiszka
+        'FLASHCARD' => 12,                       // xx fiszka
+        'COMPLETE_SENTENCE' => 13                // xx uzupełnij zdanie
     ];
 
     /**
@@ -62,7 +63,9 @@ class Exercise extends Model
     protected $fillable = [
         'lesson_id',
         'position',
-        'type'
+        'type',
+        'speech_bubble_top',
+        'speech_bubble_bottom'
     ];
 
     /**
@@ -91,7 +94,8 @@ class Exercise extends Model
             9 => ExerciseTip::class,
             10 => ExerciseExampleSentence::class,
             11 => Dialogue::class,
-            12 => ExerciseFlashcard::class
+            12 => ExerciseFlashcard::class,
+            13 => ExerciseCompleteSentence::class
         };
 
         return $this->hasOne($object, 'exercise_id')->withDefault();

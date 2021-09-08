@@ -13,7 +13,8 @@ use \OpenPayU_Exception;
 class PaymentService
 {
     public function __construct(
-        private PayuService $payuService
+        private PayuService $payuService,
+        private PayPalService $payPalService
     )
     {
     }
@@ -30,10 +31,17 @@ class PaymentService
             'success' => null
         ];
 
-        $item = $this->payuService->pay($payment);
+        if ($payment->payment_type == Payment::$paymentTypes['payu']) {
+            $item = $this->payuService->pay($payment);
 
-        $data['url'] = $item->redirectUri;
-        $data['url'] = 1;
+            if ($item->status?->statusCode == 'SUCCESS') {
+                $data['url'] = $item->redirectUri;
+                $data['success'] = 1;
+            } else {
+                $data['url'] = null;
+                $data['success'] = 0;
+            }
+        }
 
         return $data;
     }
@@ -50,6 +58,9 @@ class PaymentService
             $data['user_id'] = Auth::id();
             $data['token'] = Str::random(64);
             $data['status'] = Payment::$statuses['STARTED'];
+            if ($data['payment_type'] != Payment::$paymentTypes['payu'] && $data['payment_type'] != Payment::$paymentTypes['paypal']) {
+                throw new Exception('Brak danego sposobu płatności');
+            }
 
             $payment = Payment::create($data);
 

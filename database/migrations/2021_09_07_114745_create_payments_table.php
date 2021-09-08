@@ -15,15 +15,18 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('amount');
-            $table->boolean('is_invoice')->nullable();
+            $table->unsignedInteger('user_id')->index();
+            $table->integer('amount')->nullable();
+            $table->unsignedInteger('subscribe_id')->index();
+            $table->string('payment_type');
+            $table->boolean('is_invoice')->default(0);
             $table->string('company_name')->nullable();
-            $table->string('company_address')->nullable();
             $table->string('nip')->nullable();
-            $table->unsignedBigInteger('course_id')->index();
-            $table->string('token');
+            $table->string('company_address')->nullable();
+            $table->string('payu_id')->nullable();
+            $table->string('paypal_id')->nullable();
             $table->integer('status');
+            $table->string('token');
             $table->timestamps();
         });
     }

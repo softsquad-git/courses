@@ -29,6 +29,7 @@ Vue.component('nine_-exercise-component', require('./components/exercises/Nine_E
 Vue.component('ten_-exercise-component', require('./components/exercises/Ten_ExerciseComponent.vue').default);
 Vue.component('eleven_-exercise-component', require('./components/exercises/Eleven_ExerciseComponent.vue').default);
 Vue.component('twelve_-exercise-component', require('./components/exercises/Twelve_ExerciseComponent.vue').default);
+Vue.component('thirteen_-exercise-component', require('./components/exercises/Thirteen_ExerciseComponent.vue').default);
 
 const app = new Vue({
     el: '#app',

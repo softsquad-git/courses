@@ -30,9 +30,9 @@
                                 <tr>
                                     <th scope="row">{{ $key + 1 }}</th>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->price }}</td>
+                                    <td>{{ $item->getPrice() }}</td>
                                     <td>{{ $item->unit }}</td>
-                                    <td>{{ $item->price_promo }}</td>
+                                    <td>{{ $item->getPricePromo() }}</td>
                                     <td class="text-right">
                                         <a href="{{ route('admin.subscription.update', ['id' => $item->id]) }}" class="btn btn-outline-warning btn-sm mr-2 btn-rounded">
                                             <i class="icon icon-pencil"></i>

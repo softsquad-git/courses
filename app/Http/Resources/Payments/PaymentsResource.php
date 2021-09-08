@@ -16,7 +16,7 @@ class PaymentsResource extends JsonResource
         return [
             'id' => $this->id,
             'amount' => $this->getAmount(),
-            'expired' => $this->subscribe?->getExpiredAt(),
+            'expired' => '',
             'subscription' => $this->subscribe?->name,
             'status' => $this->status_value['name'],
             'status_code' => $this->status_value['code'],

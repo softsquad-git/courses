@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubscribeIdToPaymentsTable extends Migration
+class AddSpeechBubblesToExercisesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddSubscribeIdToPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->unsignedBigInteger('subscribe_id')->index();
+        Schema::table('exercises', function (Blueprint $table) {
+            $table->text('speech_bubble_top')->nullable();
+            $table->text('speech_bubble_bottom')->nullable();
         });
     }
 
@@ -25,7 +26,7 @@ class AddSubscribeIdToPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('payments', function (Blueprint $table) {
+        Schema::table('exercises', function (Blueprint $table) {
             //
         });
     }

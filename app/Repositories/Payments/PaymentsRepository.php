@@ -26,6 +26,10 @@ class PaymentsRepository extends Repository
     {
         $data = $this->model->orderBy('id', $this->ordering);
 
+        if (isset($filters['payment_type']) && !empty($filters['payment_type'])) {
+            $data->where('payment_type', $filters['payment_type']);
+        }
+
         if (isset($filters['user_id']) && !empty($filters['user_id'])) {
             $data->where('user_id', $filters['user_id']);
         }

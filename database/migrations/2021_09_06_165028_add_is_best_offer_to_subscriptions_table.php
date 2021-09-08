@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPayuOrderIdToPaymentsTable extends Migration
+class AddIsBestOfferToSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPayuOrderIdToPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->string('payu_order_id')->nullable();
+        Schema::table('subscriptions', function (Blueprint $table) {
+            $table->boolean('is_best_offer')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddPayuOrderIdToPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('payments', function (Blueprint $table) {
+        Schema::table('subscriptions', function (Blueprint $table) {
             //
         });
     }
