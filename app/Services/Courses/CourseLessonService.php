@@ -31,6 +31,8 @@ class CourseLessonService extends Service
         if (isset($data['image']) && !empty($data['image'])) {
             $data['image'] = $this->uploadSingleFile($data['image'], Lesson::$fileDir);
         }
+        $maxPosition = Lesson::where('course_id', $data['course_id'])->max('position');
+        $data['position'] = $maxPosition + 1;
         return parent::save($data);
     }
 }
