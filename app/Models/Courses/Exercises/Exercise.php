@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int lesson_id
  * @property int position
  * @property int type
+ * @property string header
  * @method static create(array $data)
  * @method static orderBy(string $column, string $value)
  */
@@ -64,8 +65,8 @@ class Exercise extends Model
         'lesson_id',
         'position',
         'type',
-        'speech_bubble_top',
-        'speech_bubble_bottom'
+        'speech_bubble_bottom',
+        'header'
     ];
 
     /**

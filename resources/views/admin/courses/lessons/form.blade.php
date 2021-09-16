@@ -42,6 +42,10 @@
                         <textarea id="description" name="description" class="editor">{{ $item->description ? $item->description : old('description') }}</textarea>
                     </div>
                     <div class="form-group">
+                        <label for="speech_bubble" class="col-form-label">Treść dymka (górnego)</label>
+                        <textarea id="speech_bubble" name="speech_bubble" class="editor">{{ $item->speech_bubble ? $item->speech_bubble : old('speech_bubble') }}</textarea>
+                    </div>
+                    <div class="form-group">
                         <label for="is_premium" class="col-form-label">
                             <input type="checkbox" @if($item->is_premium) checked="checked" @endif id="is_premium" name="is_premium" value="1">
                             Lekcja tylko po wykupieniu kursu

@@ -1,5 +1,9 @@
 <template>
     <form method="post" @submit.prevent="save" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="header" class="col-form-label">Nagłówek</label>
+            <input type="text" class="form-control" v-model="data.header" id="header">
+        </div>
         <div class="form-group row">
             <div class="col-md-6">
                 <label class="col-form-label" for="question">Pytanie</label>
@@ -12,11 +16,6 @@
         </div>
         <answers-component ref="answers"></answers-component>
         <div class="form-group row" style="margin-top: 20px">
-            <div class="col-md-6 col-12">
-                <h4>Dymek na górze</h4>
-                <label for="topBubble" class="col-form-label">Treść</label>
-                <textarea id="topBubble" class="form-control" rows="3" v-model="data.speech_bubble_top"></textarea>
-            </div>
             <div class="col-md-6 col-12">
                 <h4>Dymek na dole</h4>
                 <label for="bottomBubble" class="col-form-label">Treść</label>
@@ -39,7 +38,7 @@ export default {
             data: {
                 question: '',
                 question_trans: '',
-                speech_bubble_top: '',
+                header: '',
                 speech_bubble_bottom: ''
             },
         }

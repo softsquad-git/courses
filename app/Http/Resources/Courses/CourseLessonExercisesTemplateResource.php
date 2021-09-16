@@ -14,6 +14,7 @@ class CourseLessonExercisesTemplateResource extends JsonResource
     public function toArray($request): array
     {
         $data = parent::toArray($request);
+        $data['header'] = $this->exercise?->header;
 
 
         if ($this->image) {

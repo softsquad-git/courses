@@ -1,5 +1,9 @@
 <template>
     <form method="post" @submit.prevent="save" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="header" class="col-form-label">Nagłówek</label>
+            <input type="text" class="form-control" v-model="data.header" id="header">
+        </div>
         <div class="row form-group">
             <div class="col-md-4">
                 <label class="col-form-label" for="image_one">Zdjęcie rozmówcy 1</label>
@@ -41,11 +45,6 @@
         </div>
         <div class="form-group row" style="margin-top: 20px">
             <div class="col-md-6 col-12">
-                <h4>Dymek na górze</h4>
-                <label for="topBubble" class="col-form-label">Treść</label>
-                <textarea id="topBubble" class="form-control" rows="3" v-model="data.speech_bubble_top"></textarea>
-            </div>
-            <div class="col-md-6 col-12">
                 <h4>Dymek na dole</h4>
                 <label for="bottomBubble" class="col-form-label">Treść</label>
                 <textarea id="bottomBubble" class="form-control" rows="3" v-model="data.speech_bubble_bottom"></textarea>
@@ -71,8 +70,8 @@ export default {
                     txt: '',
                     txt_trans: ''
                 }],
-                speech_bubble_top: '',
-                speech_bubble_bottom: ''
+                header: '',
+                speech_bubble_bottom: '',
             },
             types: [
                 {txt: 'Rozmówca 1', value: 'interlocutor_one'},
@@ -89,7 +88,7 @@ export default {
             formData.append('conversations', JSON.stringify(this.data.conversations));
             formData.append('type', this.type);
             formData.append('lesson_id', this.lesson_id);
-            formData.append('speech_bubble_top', this.data.speech_bubble_top);
+            formData.append('header', this.data.header);
             formData.append('speech_bubble_bottom', this.data.speech_bubble_bottom);
 
             this.$axios.post(this.save_url, formData)

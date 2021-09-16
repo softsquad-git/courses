@@ -1,5 +1,9 @@
 <template>
     <form method="post" @submit.prevent="save" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="header" class="col-form-label">Nagłówek</label>
+            <input type="text" class="form-control" v-model="data.header" id="header">
+        </div>
         <div class="row form-group">
             <div class="col-md-6">
                 <label class="col-form-label" for="txt">Tekst</label>
@@ -12,11 +16,6 @@
         </div>
         <answers-component ref="answers"></answers-component>
         <div class="form-group row" style="margin-top: 20px">
-            <div class="col-md-6 col-12">
-                <h4>Dymek na górze</h4>
-                <label for="topBubble" class="col-form-label">Treść</label>
-                <textarea id="topBubble" class="form-control" rows="3" v-model="data.speech_bubble_top"></textarea>
-            </div>
             <div class="col-md-6 col-12">
                 <h4>Dymek na dole</h4>
                 <label for="bottomBubble" class="col-form-label">Treść</label>
@@ -40,7 +39,7 @@ export default {
             data: {
                 txt: '',
                 image: '',
-                speech_bubble_top: '',
+                header: '',
                 speech_bubble_bottom: ''
             },
         }
@@ -61,7 +60,7 @@ export default {
             formData.append('answers', JSON.stringify(this.$refs.answers.$data.data));
             formData.append('type', this.type);
             formData.append('lesson_id', this.lesson_id);
-            formData.append('speech_bubble_top', this.data.speech_bubble_top);
+            formData.append('header', this.data.header);
             formData.append('speech_bubble_bottom', this.data.speech_bubble_bottom);
 
             this.$axios.post(this.save_url, formData)

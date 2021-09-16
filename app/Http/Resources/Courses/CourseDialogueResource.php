@@ -18,7 +18,8 @@ class CourseDialogueResource extends JsonResource
             'one_image' => $this->getOneImage(),
             'two_image' => $this->getTwoImage(),
             'sound_file' => $this->getSoundFile(),
-            'conversations' => CourseDialogueConversationsResource::collection($this->conversations)
+            'conversations' => CourseDialogueConversationsResource::collection($this->conversations),
+            'header' => $this->exercise?->header
         ];
     }
 }

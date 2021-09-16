@@ -4,6 +4,7 @@ namespace App\Models\Courses\Exercises;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -37,11 +38,11 @@ class ExerciseExampleSentence extends Model
     ];
 
     /**
-     * @return string
+     * @return BelongsTo
      */
-    public function exercise(): string
+    public function exercise(): BelongsTo
     {
-        return $this->belongsTo(Exercise::class);
+        return $this->belongsTo(Exercise::class)->withDefault();
     }
 
     /**

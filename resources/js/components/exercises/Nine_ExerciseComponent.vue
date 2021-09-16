@@ -1,15 +1,14 @@
 <template>
 <form @submit.prevent="save" method="post">
     <div class="form-group">
+        <label for="header" class="col-form-label">Nagłówek</label>
+        <input type="text" class="form-control" v-model="data.header" id="header">
+    </div>
+    <div class="form-group">
         <label for="content" class="col-form-label">Treść</label>
         <textarea class="form-control" v-model="data.content" id="content"></textarea>
     </div>
     <div class="form-group row" style="margin-top: 20px">
-        <div class="col-md-6 col-12">
-            <h4>Dymek na górze</h4>
-            <label for="topBubble" class="col-form-label">Treść</label>
-            <textarea id="topBubble" class="form-control" rows="3" v-model="data.speech_bubble_top"></textarea>
-        </div>
         <div class="col-md-6 col-12">
             <h4>Dymek na dole</h4>
             <label for="bottomBubble" class="col-form-label">Treść</label>
@@ -31,7 +30,7 @@ export default {
                 lesson_id: '',
                 type: '',
                 content: '',
-                speech_bubble_top: '',
+                header: '',
                 speech_bubble_bottom: ''
             },
             isSpeechBubble: false

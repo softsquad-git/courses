@@ -43,7 +43,8 @@ class Lesson extends Model
         'time',
         'image',
         'position',
-        'is_premium'
+        'is_premium',
+        'speech_bubble'
     ];
 
     /**
