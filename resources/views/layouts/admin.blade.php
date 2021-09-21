@@ -211,75 +211,75 @@
             <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="pt-4">
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="{{ route('admin.index') }}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                                 href="{{ route('admin.index') }}" aria-expanded="false"><i class="icon icon-windows"></i><span
                                 class="hide-menu">Dashboard</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                                 href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span
+                                                 href="javascript:void(0)" aria-expanded="false"><i class="icon icon-hand-paper-o"></i><span
                                 class="hide-menu">Kursy </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ route('admin.courses') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-outline"></i><span class="hide-menu"> Lista
+                                        class="icon icon-list"></i><span class="hide-menu"> Lista
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.course.create') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Dodaj
+                                        class="icon icon-plus"></i><span class="hide-menu"> Dodaj
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.course.levels') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Poziomy trudności
+                                        class="icon icon-level-up"></i><span class="hide-menu"> Poziomy trudności
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.course.lessons') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Lekcje
+                                        class="icon icon-paragraph"></i><span class="hide-menu"> Lekcje
                                         </span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="{{ route('admin.users') }}" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span
+                                                 href="{{ route('admin.users') }}" aria-expanded="false"><i class="icon icon-user"></i><span
                                 class="hide-menu">Użytkownicy</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="{{ route('admin.languages') }}" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span
+                                                 href="{{ route('admin.languages') }}" aria-expanded="false"><i class="icon icon-globe"></i><span
                                 class="hide-menu">Języki</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                                 href="{{ route('admin.testimonials') }}" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span
+                                                 href="{{ route('admin.testimonials') }}" aria-expanded="false"><i class="icon icon-star-empty"></i><span
                                 class="hide-menu">Opinie</span></a></li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                                 href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-credit-card"></i><span
+                                                 href="javascript:void(0)" aria-expanded="false"><i class="icon icon-credit-card"></i><span
                                 class="hide-menu">Płatności </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ route('admin.payments.index') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-outline"></i><span class="hide-menu"> Lista
+                                        class="icon icon-list"></i><span class="hide-menu"> Lista
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.discount_codes') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Kody rabatowe
+                                        class="icon icon-cc-discover"></i><span class="hide-menu"> Kody rabatowe
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.subscriptions') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Abnamenty
+                                        class="icon icon-subscript"></i><span class="hide-menu"> Abnamenty
                                         </span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                                 href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span
+                                                 href="javascript:void(0)" aria-expanded="false"><i class="icon icon-home"></i><span
                                 class="hide-menu">Strona główna </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ route('admin.home.information.index') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-outline"></i><span class="hide-menu"> Lista informacji
+                                        class="icon icon-list"></i><span class="hide-menu"> Lista informacji
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.home.information_images.index') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Lista informacji ze zdjęciem
+                                        class="icon icon-list"></i><span class="hide-menu"> Lista informacji ze zdjęciem
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.home.words.index') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-plus"></i><span class="hide-menu"> Lista słów
+                                        class="icon icon-list"></i><span class="hide-menu"> Lista słów
                                         </span></a></li>
                             <li class="sidebar-item"><a href="{{ route('admin.home.images.index') }}" class="sidebar-link"><i
-                                        class="mdi mdi-image"></i><span class="hide-menu"> Zdjęcia na stronie głównej
+                                        class="icon icon-list"></i><span class="hide-menu"> Zdjęcia na stronie głównej
                                         </span></a></li>
                         </ul>
                     </li>
 
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                                 href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span
+                                                 href="javascript:void(0)" aria-expanded="false"><i class="icon icon-pagelines"></i><span
                                 class="hide-menu">Strony </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="{{ route('admin.pages.static_pages.index') }}" class="sidebar-link"><i
-                                        class="mdi mdi-note-outline"></i><span class="hide-menu"> Statyczne
+                                        class="icon icon-pagelines"></i><span class="hide-menu"> Statyczne
                                         </span></a></li>
                         </ul>
                     </li>
@@ -287,7 +287,7 @@
 
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                                  href="{{ route('admin.setting.index') }}" aria-expanded="false"><i
-                                class="mdi mdi-relative-scale"></i><span class="hide-menu">Ustawienia</span></a></li>
+                                class="icon icon-cog-alt"></i><span class="hide-menu">Ustawienia</span></a></li>
 
 
                 </ul>
