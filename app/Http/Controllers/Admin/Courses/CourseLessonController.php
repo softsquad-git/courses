@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers\Admin\Courses;
 
-use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Courses\CourseLessonRequest;
-use App\Http\Resources\Courses\CourseLessonResource;
 use App\Models\Courses\Lesson;
 use App\Repositories\Courses\CourseLessonRepository;
 use App\Repositories\Courses\CourseRepository;
 use App\Services\Courses\CourseLessonService;
 use Illuminate\Http\Request;
-use \Exception;
-use \Illuminate\Contracts\View\View;
-use \Illuminate\Contracts\View\Factory;
-use \Illuminate\Contracts\Foundation\Application;
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 
 class CourseLessonController extends Controller
@@ -46,7 +44,11 @@ class CourseLessonController extends Controller
         ]);
     }
 
-
+    /**
+     * @param CourseLessonRequest $request
+     * @return Application|Factory|View|RedirectResponse
+     * @throws Exception
+     */
     public function create(CourseLessonRequest $request): Application|Factory|View|RedirectResponse
     {
         if ($request->isMethod('POST')) {

@@ -46,6 +46,15 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
             Route::delete('remove/{id}', 'CourseLessonController@remove')
                 ->name('admin.course.lesson.remove');
 
+            Route::group(['prefix' => 'audio'], function () {
+               Route::get('/{lessonId}', 'CourseLessonAudioFilesController@index')
+                   ->name('admin.course.lessons.audio.index');
+               Route::post('create/{lessonId}', 'CourseLessonAudioFilesController@create')
+                   ->name('admin.course.lessons.audio.create');
+               Route::delete('remove/{id}', 'CourseLessonAudioFilesController@remove')
+                   ->name('admin.course.lessons.audio.remove');
+            });
+
             Route::group(['prefix' => 'images'], function () {
                 Route::get('', 'CourseLessonImagesController@all');
                 Route::post('upload', 'CourseLessonImagesController@upload');

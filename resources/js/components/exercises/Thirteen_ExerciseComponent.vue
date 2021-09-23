@@ -8,7 +8,9 @@
             <div class="col-md-6">
                 <label class="col-form-label" for="sentence">Zdanie</label>
                 <input type="text" class="form-control" v-model="data.sentence" id="sentence">
-                <small>W miejscu słowa które ma być uzupełnione wstaw < span>< /span></small>
+                <small>
+                    W miejscu słowa które ma być uzupełnione wstaw
+                </small>
             </div>
             <div class="col-md-6">
                 <label for="sentence_trans" class="col-form-label">Zdanie przetłumaczone</label>

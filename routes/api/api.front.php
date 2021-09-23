@@ -19,6 +19,8 @@ Route::group(['prefix' => 'course', 'namespace' => 'Front', 'middleware' => 'aut
            Route::get('first/{lessonId}', 'LessonFlashcardController@firstFlashcardByLesson');
            Route::get('next/{id}', 'LessonFlashcardController@nextFlashcard');
        });
+
+       Route::get('audio/{courseId}', 'LessonAudioFilesController@all');
    });
     Route::group(['prefix' => 'payments', 'namespace' => 'Payments'], function () {
         Route::get('subscriptions', 'SubscriptionController');

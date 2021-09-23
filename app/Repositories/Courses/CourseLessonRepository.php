@@ -29,7 +29,7 @@ class CourseLessonRepository extends Repository
      */
     public function findBy(array $filters): LengthAwarePaginator
     {
-        $data = $this->model::orderBy('id', $this->ordering);
+        $data = $this->model::orderBy('position', 'ASC');
 
         if (isset($filters['course_id']) && !empty($filters['course_id']))
             $data->where(['course_id' => $filters['course_id']]);

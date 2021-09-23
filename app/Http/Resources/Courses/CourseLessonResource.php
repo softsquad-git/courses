@@ -33,14 +33,16 @@ class CourseLessonResource extends JsonResource
             'created_at' => (string)$this->created_at,
             'description' => $this->description,
             'position' => $this->position,
-            'time' => '7 min',
+            'time' => $this->lesson_time.' min',
             'progress' => [
                 'completed' => $completed->count(),
                 'all' => $this->exercises->count(),
                 'percent' => $this->getPercentage($this->exercises->count(), $completed->count())
             ],
             'is_premium' => Auth::user()->is_premium ? 0 : $this->is_premium,
-            'countFlashcards' => $this->flashcards->count()
+            'countFlashcards' => $this->flashcards->count(),
+            'file_audio' => $this->getAudio(),
+            'time_file_audio' => $this->time_file_audio.' min'
         ];
     }
 

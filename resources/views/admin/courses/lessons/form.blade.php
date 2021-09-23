@@ -51,6 +51,36 @@
                             Lekcja tylko po wykupieniu kursu
                         </label>
                     </div>
+                    <div class="row form-group">
+                        <div class="col-md-2 col-12">
+                            <label for="lesson_time" class="col-form-label">Czas lekcji</label>
+                            <input type="number" class="form-control" name="lesson_time" value="{{ $item->lesson_time ? $item->lesson_time : old('lesson_time') }}">
+                            @error('lesson_time')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <label for="time_file_audio" class="col-form-label">Czas audio</label>
+                            <input type="number" class="form-control" name="time_file_audio" value="{{ $item->time_file_audio ? $item->time_file_audio : old('time_file_audio') }}">
+                            @error('time_file_audio')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <label for="position" class="col-form-label">Pozycja</label>
+                            <input type="number" class="form-control" name="position" value="{{ $item->position ? $item->position : old('position') }}">
+                            @error('position')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <label for="file_audio" class="col-form-label">Plik audio</label>
+                            <input type="file" class="form-control" name="file_audio">
+                            @error('file_audio')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-outline-success btn-sm btn-rounded mr-2">
                             Zapisz

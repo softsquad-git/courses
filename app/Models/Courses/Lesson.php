@@ -16,8 +16,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property float|null time
  * @property string image
  * @property int position
+ * @property int lesson_time
  * @method static find(int $lessonId)
  * @property int id
+ * @property string|null file_audio
+ * @property int|null time_file_audio
  */
 class Lesson extends Model
 {
@@ -27,6 +30,11 @@ class Lesson extends Model
      * @var string $fileDir
      */
     public static string $fileDir = 'assets/media/courses/lessons/';
+
+    /**
+     * @var string $fileDirAudio
+     */
+    public static string $fileDirAudio = 'assets/media/courses/lessons/audio/';
 
     /**
      * @var string $table
@@ -44,7 +52,10 @@ class Lesson extends Model
         'image',
         'position',
         'is_premium',
-        'speech_bubble'
+        'speech_bubble',
+        'lesson_time',
+        'file_audio',
+        'time_file_audio'
     ];
 
     /**
@@ -83,5 +94,17 @@ class Lesson extends Model
         return $this->exercises()->where([
             'type' => Exercise::$types['FLASHCARD']
         ]);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAudio(): ?string
+    {
+        if ($this->file_audio) {
+            return asset(self::$fileDirAudio.$this->file_audio);
+        }
+
+        return null;
     }
 }

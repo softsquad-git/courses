@@ -23,6 +23,25 @@ class CourseLessonService extends Service
 
     /**
      * @param array $data
+     * @param Model $model
+     * @return Model
+     * @throws Exception
+     */
+    public function update(array $data, Model $model): Model
+    {
+        if (isset($data['image']) && !empty($data['image'])) {
+            $data['image'] = $this->uploadSingleFile($data['image'], Lesson::$fileDir);
+        }
+
+        if (isset($data['file_audio']) && !empty($data['file_audio'])) {
+            $data['file_audio'] = $this->uploadSingleFile($data['file_audio'], Lesson::$fileDirAudio);
+        }
+
+        return parent::update($data, $model);
+    }
+
+    /**
+     * @param array $data
      * @return Model
      * @throws Exception
      */
@@ -31,8 +50,11 @@ class CourseLessonService extends Service
         if (isset($data['image']) && !empty($data['image'])) {
             $data['image'] = $this->uploadSingleFile($data['image'], Lesson::$fileDir);
         }
-        $maxPosition = Lesson::where('course_id', $data['course_id'])->max('position');
-        $data['position'] = $maxPosition + 1;
+
+        if (isset($data['file_audio']) && !empty($data['file_audio'])) {
+            $data['file_audio'] = $this->uploadSingleFile($data['file_audio'], Lesson::$fileDirAudio);
+        }
+
         return parent::save($data);
     }
 }
