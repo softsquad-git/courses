@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front\Courses;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\Controller;
+use Exception;
 use App\Models\Courses\Exercises\Exercise;
 use App\Repositories\Courses\CourseLessonExerciseRepository;
 use App\Repositories\Courses\CourseLessonProgressRepository;
@@ -20,6 +20,11 @@ class LessonController extends ApiController
     {
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Exception
+     */
     public function getUserLessonInfo(Request $request): JsonResponse
     {
         $lessonId = $request->get('lesson_id');

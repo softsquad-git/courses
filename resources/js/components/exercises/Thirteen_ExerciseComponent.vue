@@ -9,7 +9,7 @@
                 <label class="col-form-label" for="sentence">Zdanie</label>
                 <input type="text" class="form-control" v-model="data.sentence" id="sentence">
                 <small>
-                    W miejscu słowa które ma być uzupełnione wstaw
+                    W miejscu słowa które ma być uzupełnione wstaw <span style="background: #000;color: #39ff1c;font-weight: bold;">&lt;span&gt;&lt;/span&gt;</span>
                 </small>
             </div>
             <div class="col-md-6">
