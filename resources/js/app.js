@@ -13,7 +13,9 @@ require('./template/libs/flot/jquery.flot.stack.js');
 require('./template/libs/flot/jquery.flot.crosshair.js');
 require('./template/libs/flot.tooltip/js/jquery.flot.tooltip.min.js');
 require('./template/dist/js/pages/chart/chart-page-init.js');
+import CKEditor from 'ckeditor4-vue';
 
+Vue.use( CKEditor );
 window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);

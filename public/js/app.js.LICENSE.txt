@@ -41,7 +41,19 @@
  * @license MIT
  */
 
+/*! For license information please see ckeditor.js.LICENSE.txt */
+
 /*! jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license */
+
+/*!*
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
+/*!*
+* @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+* For licensing, see LICENSE.md.
+*/
 
 /**
  * @license

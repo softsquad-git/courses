@@ -6,7 +6,7 @@
     </div>
     <div class="form-group">
         <label for="content" class="col-form-label">Treść</label>
-        <textarea class="form-control" v-model="data.content" id="content"></textarea>
+        <ckeditor value="Treść" v-model="data.content"></ckeditor>
     </div>
     <div class="form-group row" style="margin-top: 20px">
         <div class="col-md-6 col-12">

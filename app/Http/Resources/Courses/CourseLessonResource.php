@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Courses;
 
 use App\Models\Courses\Lesson;
+use App\Models\Users\UserAudio;
 use App\Models\Users\UserLessonExerciseProgress;
 use Illuminate\Http\Resources\Json\JsonResource;
 use \Illuminate\Http\Request;
@@ -42,7 +43,9 @@ class CourseLessonResource extends JsonResource
             'is_premium' => Auth::user()->is_premium ? 0 : $this->is_premium,
             'countFlashcards' => $this->flashcards->count(),
             'file_audio' => $this->getAudio(),
-            'time_file_audio' => $this->time_file_audio.' min'
+            'time_file_audio' => $this->time_file_audio.' min',
+            'file_audio_src' => $this->file_audio,
+            'is_added_audio' => UserAudio::where(['lesson_id' => $this->id, 'user_id' => Auth::id()])->first() ? true : false
         ];
     }
 

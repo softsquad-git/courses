@@ -18,6 +18,11 @@ Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
         Route::post('pay', 'PaymentController@payment');
         Route::post('finalization', 'PaymentController@finalization');
     });
+    Route::group(['prefix' => 'audio'], function () {
+        Route::get('', 'UserAudioController@all');
+        Route::post('create', 'UserAudioController@create');
+        Route::delete('remove/{id}', 'UserAudioController@remove');
+    });
 
     Route::get('find', 'UserController@loggedUser');
     Route::post('change-password', 'SettingsController@changePassword');

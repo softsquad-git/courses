@@ -3,10 +3,13 @@
 namespace App\Models\Courses;
 
 use App\Models\Courses\Exercises\Exercise;
+use App\Models\Users\UserAudio;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @package App\Models\Courses
@@ -106,5 +109,15 @@ class Lesson extends Model
         }
 
         return null;
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function isAddedAudio(): HasOne
+    {
+        return $this->hasOne(UserAudio::class, 'lesson_id', 'id')
+            ->where('user_id', Auth::id())
+            ->withDefault();
     }
 }
