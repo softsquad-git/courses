@@ -14,6 +14,7 @@ Route::group(['prefix' => 'course', 'namespace' => 'Front', 'middleware' => 'aut
        Route::get('', 'LessonController@all');
        Route::get('find/{id}', 'LessonController@find');
        Route::get('next-lesson/{lessonId}/{courseId}', 'LessonController@nextLesson');
+       Route::get('end-lesson/{lessonId}', 'LessonController@getEndLesson');
 
        Route::group(['prefix' => 'flashcards'], function () {
            Route::get('first/{lessonId}', 'LessonFlashcardController@firstFlashcardByLesson');

@@ -34,6 +34,16 @@ class CourseLessonRepository extends Repository
         if (isset($filters['course_id']) && !empty($filters['course_id']))
             $data->where(['course_id' => $filters['course_id']]);
 
+        if (isset($filters['name']) && !empty($filters['name'])) {
+            $data->where('name', 'like', '%' . $filters['name'] . '%');
+        }
+
+        if (isset($filters['level_id']) && !empty($filters['level_id'])) {
+            $data->whereHas('course', function ($course) use ($filters) {
+                $course->where('level_id', $filters['level_id']);
+            });
+        }
+
         return $data->paginate($this->pagination);
     }
 

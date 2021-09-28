@@ -14,7 +14,7 @@ class CreateAddTimeFileAudioToLessonsTable extends Migration
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->integer('time_file_audio')->nullable();
+            $table->string('time_file_audio')->nullable();
         });
     }
 

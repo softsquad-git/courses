@@ -7,6 +7,7 @@ use App\Http\Requests\Courses\CourseLessonRequest;
 use App\Models\Courses\Lesson;
 use App\Repositories\Courses\CourseLessonRepository;
 use App\Repositories\Courses\CourseRepository;
+use App\Repositories\Levels\LevelRepository;
 use App\Services\Courses\CourseLessonService;
 use Illuminate\Http\Request;
 use Exception;
@@ -21,11 +22,13 @@ class CourseLessonController extends Controller
      * @param CourseLessonService $courseLessonService
      * @param CourseLessonRepository $courseLessonRepository
      * @param CourseRepository $courseRepository
+     * @param LevelRepository $levelRepository
      */
     public function __construct(
         private CourseLessonService $courseLessonService,
         private CourseLessonRepository $courseLessonRepository,
-        private CourseRepository $courseRepository
+        private CourseRepository $courseRepository,
+        private LevelRepository $levelRepository
     )
     {
     }
@@ -40,7 +43,8 @@ class CourseLessonController extends Controller
 
         return view('admin.courses.lessons.index', [
             'data' => $data,
-            'title' => 'Lekcje'
+            'title' => 'Lekcje',
+            'levels' => $this->levelRepository->findAll()
         ]);
     }
 

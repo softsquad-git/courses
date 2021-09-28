@@ -28,7 +28,7 @@
                                     <th scope="row">{{ $key + 1 }}</th>
                                     <th>{{ __('exercises.types.'.$item->type) }}</th>
                                     <td class="text-right">
-                                        <a href="{{ route('admin.course.lesson.update', ['id' => $item->id]) }}" class="btn btn-outline-warning btn-sm mr-2 btn-rounded">
+                                        <a href="{{ route('admin.exercise.update', ['id' => $item->id]) }}" class="btn btn-outline-warning btn-sm mr-2 btn-rounded">
                                             <i class="icon icon-pencil"></i>
                                         </a>
                                         <form class="remove-form" style="display: inline-block" method="POST" action="{{ route('admin.exercise.remove', ['id' => $item->id]) }}">
@@ -43,6 +43,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="card-footer">
+                            @include('admin.partials.pagination', ['data' => $data])
+                        </div>
                     @else
                         <div class="container-fluid">
                             <div class="alert-danger alert text-center">

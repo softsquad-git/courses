@@ -45,6 +45,8 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
                 ->name('admin.course.lesson.update');
             Route::delete('remove/{id}', 'CourseLessonController@remove')
                 ->name('admin.course.lesson.remove');
+            Route::match(['get', 'post'], 'end-lesson/{lessonId}', 'CourseEndLessonPageController')
+                ->name('admin.course.lesson.end_lesson');
 
             Route::group(['prefix' => 'audio'], function () {
                Route::get('/{lessonId}', 'CourseLessonAudioFilesController@index')
@@ -68,6 +70,8 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
                     ->name('admin.exercise.create');
                 Route::delete('remove/{id}', 'CourseLessonExerciseController@remove')
                     ->name('admin.exercise.remove');
+                Route::match(['get', 'post'], 'update/{id}', 'CourseLessonExerciseController@update')
+                    ->name('admin.exercise.update');
             });
 
             Route::group(['prefix' => 'flashcards'], function () {

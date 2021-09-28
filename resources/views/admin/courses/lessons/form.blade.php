@@ -54,14 +54,14 @@
                     <div class="row form-group">
                         <div class="col-md-2 col-12">
                             <label for="lesson_time" class="col-form-label">Czas lekcji</label>
-                            <input type="number" class="form-control" name="lesson_time" value="{{ $item->lesson_time ? $item->lesson_time : old('lesson_time') }}">
+                            <input type="text" class="form-control" name="lesson_time" value="{{ $item->lesson_time ? $item->lesson_time : old('lesson_time') }}">
                             @error('lesson_time')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-md-2 col-12">
                             <label for="time_file_audio" class="col-form-label">Czas audio</label>
-                            <input type="number" class="form-control" name="time_file_audio" value="{{ $item->time_file_audio ? $item->time_file_audio : old('time_file_audio') }}">
+                            <input type="text" class="form-control" name="time_file_audio" value="{{ $item->time_file_audio ? $item->time_file_audio : old('time_file_audio') }}">
                             @error('time_file_audio')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -79,6 +79,35 @@
                             @error('file_audio')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4 col-12">
+                            <label for="end_lesson_title" class="form-label">Nagłówek (Zakończenie lekcji)</label>
+                            <input type="text" class="form-control" id="end_lesson_title" name="endLesson[title]" value="{{ $item->endLesson ? ($item->endLesson?->title ? $item->endLesson->title : '') : (old('endLesson.title')) }}">
+                            @error('endLesson.title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label for="end_lesson_sub_title" class="form-label">Tytuł (Zakończenie lekcji)</label>
+                            <input type="text" class="form-control" id="end_lesson_sub_title" name="endLesson[sub_title]" value="{{ $item->endLesson ? ($item->endLesson?->sub_title ? $item->endLesson->sub_title : '') : (old('endLesson.sub_title')) }}">
+                            @error('endLesson.sub_title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <label for="end_lesson_desc" class="form-label">Podtytuł (Zakończenie lekcji)</label>
+                            <input type="text" class="form-control" id="end_lesson_desc" name="endLesson[description]" value="{{ $item->endLesson ? ($item->endLesson?->description ? $item->endLesson->description : '') : (old('endLesson.description')) }}">
+                            @error('endLesson.description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label for="end_lesson_image" class="form-label">Zdjęcie (Zakończenie lekcji)</label>
+                            <input type="file" class="form-control" name="endLesson[image]">
                         </div>
                     </div>
                     <div class="form-group">

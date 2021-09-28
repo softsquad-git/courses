@@ -30,7 +30,7 @@ class CourseLessonExerciseRepository extends Repository
     public function findBy(
         array $filters,
         string $ordering = 'DESC',
-        int $pagination = 20,
+        int $pagination = 30,
         int $limit = 0
     ): LengthAwarePaginator|Collection|array
     {

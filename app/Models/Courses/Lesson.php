@@ -3,6 +3,7 @@
 namespace App\Models\Courses;
 
 use App\Models\Courses\Exercises\Exercise;
+use App\Models\Lessons\EndLessonPage;
 use App\Models\Users\UserAudio;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,11 +20,11 @@ use Illuminate\Support\Facades\Auth;
  * @property float|null time
  * @property string image
  * @property int position
- * @property int lesson_time
+ * @property string lesson_time
  * @method static find(int $lessonId)
  * @property int id
  * @property string|null file_audio
- * @property int|null time_file_audio
+ * @property string|null time_file_audio
  */
 class Lesson extends Model
 {
@@ -118,6 +119,15 @@ class Lesson extends Model
     {
         return $this->hasOne(UserAudio::class, 'lesson_id', 'id')
             ->where('user_id', Auth::id())
+            ->withDefault();
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function endLesson(): HasOne
+    {
+        return $this->hasOne(EndLessonPage::class, 'lesson_id')
             ->withDefault();
     }
 }

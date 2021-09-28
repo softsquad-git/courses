@@ -14,7 +14,7 @@ class AddLessonTimeColumnToLessonsTable extends Migration
     public function up()
     {
         Schema::table('lessons', function (Blueprint $table) {
-            $table->integer('lesson_time')->nullable();
+            $table->string('lesson_time')->nullable();
         });
     }
 

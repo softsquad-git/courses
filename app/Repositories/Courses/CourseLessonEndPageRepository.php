@@ -14,4 +14,13 @@ class CourseLessonEndPageRepository
     {
         return EndLessonPage::find($id);
     }
+
+    /**
+     * @param array $filters
+     * @return EndLessonPage|null
+     */
+    public function findByOne(array $filters): ?EndLessonPage
+    {
+        return EndLessonPage::where($filters)->first();
+    }
 }

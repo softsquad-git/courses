@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Courses\CourseLessonExerciseRequest;
 use App\Http\Resources\Courses\CourseLessonExercisesResource;
 use App\Models\Courses\Exercises\Exercise;
+use App\Models\Courses\Lesson;
 use App\Repositories\Courses\CourseLessonExerciseRepository;
 use App\Services\Courses\Exercises\CourseLessonExerciseService;
 use Illuminate\Http\Request;
@@ -78,14 +79,18 @@ class CourseLessonExerciseController extends Controller
      */
     public function update(CourseLessonExerciseRequest $request, int $id): Application|Factory|View|RedirectResponse
     {
+        /**
+         * @var Exercise $item
+         */
         $item = $this->courseLessonExerciseRepository->find($id);
         if ($request->isMethod('POST')) {
 
         }
 
-        return \view('admin.courses.lessons.exercises.form', [
+        return view('admin.courses.lessons.exercises.form', [
             'item' => $item,
-            'title' => 'Edytuj ćwiczenie'
+            'title' => 'Edytuj ćwiczenie',
+            'lessonId' => $item->lesson_id,
         ]);
     }
 

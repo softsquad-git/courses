@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front\Lessons;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\Courses\CourseLessonResource;
 use App\Models\Courses\Lesson;
+use App\Repositories\Courses\CourseLessonEndPageRepository;
 use App\Repositories\Courses\CourseLessonRepository;
 use Illuminate\Http\Request;
 use \Exception;
@@ -14,9 +15,11 @@ use \Illuminate\Http\JsonResponse;
 class LessonController extends ApiController
 {
     public function __construct(
-        private CourseLessonRepository $courseLessonRepository
+        private CourseLessonRepository        $courseLessonRepository,
+        private CourseLessonEndPageRepository $courseLessonEndPageRepository
     )
-    {}
+    {
+    }
 
     /**
      * @param Request $request
@@ -68,6 +71,23 @@ class LessonController extends ApiController
         return $this->successResponse($nextLesson->name, [
             'lesson' => $nextLesson,
             'lessonId' => $nextLesson->id
+        ]);
+    }
+
+    /**
+     * @param int $lessonId
+     * @return JsonResponse
+     */
+    public function getEndLesson(int $lessonId): JsonResponse
+    {
+        $item = $this->courseLessonEndPageRepository->findByOne(['lesson_id' => $lessonId]);
+
+        if ($item) {
+            $item->image = $item->getImage();
+        }
+
+        return $this->successResponse('', [
+            'item' => $item
         ]);
     }
 }
