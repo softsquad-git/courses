@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Lesson|null lesson
  * @method static find(int $id)
  * @method static create(array $data)
+ * @method static where(array $filters)
  */
 class EndLessonPage extends Model
 {

@@ -20,14 +20,16 @@ class CourseLessonEndPageService
         if ($endLessonPage) {
             if (isset($data['image']) && !empty($data['image'])) {
                 $data['image'] = $this->uploadSingleFile($data['image'], EndLessonPage::$fileDir);
-
-                $endLessonPage->update($data);
-
-                return $endLessonPage;
             }
+
+            $endLessonPage->update($data);
+
+            return $endLessonPage;
         }
 
-        $data['image'] = $this->uploadSingleFile($data['image'], EndLessonPage::$fileDir);
+        if (isset($data['image'])) {
+            $data['image'] = $this->uploadSingleFile($data['image'], EndLessonPage::$fileDir);
+        }
 
         return EndLessonPage::create($data);
     }
