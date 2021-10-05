@@ -1,23 +1,28 @@
 <template>
-    <form method="post" @submit.prevent="save" enctype="multipart/form-data">
+    <form method="post" @submit.prevent="save">
         <div class="form-group">
             <label for="header" class="col-form-label">Nagłówek</label>
             <input type="text" class="form-control" v-model="data.header" id="header">
         </div>
-        <div class="row form-group">
-            <div class="col-md-6">
-                <label class="col-form-label" for="sentence">Zdanie</label>
-                <input type="text" class="form-control" v-model="data.sentence" id="sentence">
-                <small>
-                    W miejscu słowa które ma być uzupełnione wstaw <span style="background: #000;color: #39ff1c;font-weight: bold;">&lt;span&gt;&lt;/span&gt;</span>
-                </small>
+
+        <div class="row form-group" v-for="(word, index) in data.words">
+            <div class="col-md-5 col-12">
+                <label class="col-form-label" :for="index">Słowo</label>
+                <input type="text" class="form-control" v-model="word.txt" :id="index">
             </div>
-            <div class="col-md-6">
-                <label for="sentence_trans" class="col-form-label">Zdanie przetłumaczone</label>
-                <input type="text" class="form-control" v-model="data.sentence_trans" id="sentence_trans">
+            <div class="col-md-5 col-12">
+                <label class="col-form-label" :for="index + 1">Słowo przetłumaczone</label>
+                <input type="text" class="form-control" v-model="word.txt_trans" :id="index + 1">
+            </div>
+            <div class="col-md-2 col-12">
+                <div class="buttons text-right" style="margin-top: 30px; text-align: right">
+                    <button v-if="data.words.length > 1" class="btn btn-sm btn-rounded btn-danger" type="button" @click="removeWord(index)"><i class="icon icon-minus"></i> </button>
+                </div>
             </div>
         </div>
-        <answers-component ref="answers"></answers-component>
+
+        <button class="btn mt-2 btn-sm btn-rounded btn-success" type="button" @click="addWord"><i class="icon icon-plus"></i> </button>
+
         <div class="form-group row" style="margin-top: 20px">
             <div class="col-md-6 col-12">
                 <h4>Dymek na dole</h4>
@@ -32,18 +37,17 @@
 </template>
 
 <script>
-import AnswersComponent from "./answers/AnswersComponent";
 export default {
-    name: "Thirteen_ExerciseComponent",
-    components: {AnswersComponent},
+    name: "Seven_ExerciseComponent",
     data() {
         return {
             data: {
-                sentence: '',
-                sentence_trans: '',
+                type: '',
+                lesson_id: '',
                 header: '',
-                speech_bubble_bottom: ''
-            },
+                speech_bubble_bottom: '',
+                words: [{txt: '', txt_trans: ''}]
+            }
         }
     },
     props: {
@@ -54,9 +58,9 @@ export default {
     },
     methods: {
         save() {
-            this.data.type = this.type;
             this.data.lesson_id = this.lesson_id;
-            this.data.answers = JSON.stringify(this.$refs.answers.$data.data);
+            this.data.type = this.type;
+
             this.$axios.post(this.save_url, this.data)
                 .then((data) => {
                     this.$swal.fire({
@@ -79,6 +83,15 @@ export default {
                 //
             })
         },
+        addWord() {
+            this.data.words.push({
+                txt: '',
+                txt_trans: ''
+            })
+        },
+        removeWord(index) {
+
+        }
     },
     mounted() {
         if (this.item_id) {
@@ -86,13 +99,8 @@ export default {
                 .then((data) => {
                     const item = data.data.data;
                     this.data.header = item.template.header;
-                    this.data.sentence = item.template.sentence;
-                    this.data.sentence_trans = item.template.sentence_trans;
                     this.data.speech_bubble_bottom = item.speech_bubble_bottom;
-                    this.$refs.answers.$data.data = item.template.answers;
-                }).catch((error) => {
-                    //
-            })
+                })
         }
     }
 }

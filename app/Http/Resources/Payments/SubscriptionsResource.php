@@ -14,12 +14,18 @@ class SubscriptionsResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $onPeriodPartials = explode('.', $this->getOnPeriod());
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'price' => Price::decode($this->price),
-            'price_promo' => Price::decode($this->price_promo),
-            'unit' => $this->unit
+            'price' => $this->getPrice(),
+            'price_promo' => $this->getPricePromo(),
+            'on_period' => [
+                'all' => $this->getOnPeriod(),
+                'price' => $onPeriodPartials[0],
+                'cents' => $onPeriodPartials[1]
+            ],
+            'period' => $this->period,
+            'percent_minus' => $this->price_promo ? round(((($this->price - $this->price_promo) / $this->price) * 100), 0) : null
         ];
     }
 }

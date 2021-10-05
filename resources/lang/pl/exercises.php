@@ -7,6 +7,7 @@ return [
         0 => 'Podpowiedź',
         10 => 'Przykłady zdań',
         12 => 'Fiszki',
-        13 => 'Uzupełnij zdanie'
+        13 => 'Uzupełnij zdanie',
+        7 => 'Dopasuj słowa w pary'
     ]
 ];

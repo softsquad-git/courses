@@ -47,7 +47,8 @@ export default {
     props: {
         type: '',
         save_url: '',
-        lesson_id: ''
+        lesson_id: '',
+        item_id: ''
     },
     methods: {
         changeImage(e) {
@@ -84,6 +85,18 @@ export default {
                 }).catch((error) => {
 
             })
+        }
+    },
+    mounted() {
+        if (this.item_id) {
+            this.$axios.get(`/administration/courses/lessons/exercises/find/${this.item_id}`)
+                .then((data) => {
+                    const item = data.data.data;
+                    this.data.txt = item.template.txt;
+                    this.data.header = item.template.header;
+                    this.data.speech_bubble_bottom = item.speech_bubble_bottom;
+                    this.$refs.answers.$data.data = item.template.answers;
+                })
         }
     }
 }

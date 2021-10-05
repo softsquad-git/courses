@@ -7,50 +7,23 @@
             <div class="card-body">
                 <form method="POST" action="{{ $item->id ? route('admin.subscription.update', ['id' => $item->id]) : route('admin.subscription.create') }}">
                     @csrf
-                    <div class="form-group row">
-                        <div class="col-md-3">
-                            <label for="name">Nazwa</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $item->name ? $item->name : old('name') }}"
-                                   placeholder="Nazwa">
-                            @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                    <div class="row form-group">
+                        <div class="col-md-2 col-12">
+                            <label for="period" class="form-label">Okres trwania</label>
+                            <input type="text" class="form-control" id="period" aria-describedby="periodHelp" name="period" value="{{ $item->period ? $item->period : old('period') }}">
+                            <div id="periodHelp" class="form-text">np. 12 miesięcy</div>
                         </div>
-                        <div class="col-md-2">
-                            <label for="price">Cena</label>
-                            <input type="text" class="form-control" id="price" name="price" value="{{ $item->price ? $item->getPrice() : old('price') }}"
-                                   placeholder="Cena">
-                            @error('price')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                        <div class="col-md-2 col-12">
+                            <label for="price" class="form-label">Cena</label>
+                            <input type="number" id="price" class="form-control" step="0.01" name="price" value="{{ $item->price ? $item->getPrice() : old('price') }}">
                         </div>
-                        <div class="col-md-2">
-                            <label for="price_promo">Cena promocyjna</label>
-                            <input type="text" class="form-control" id="price_promo" name="price_promo" value="{{ $item->price_promo ? $item->getPricePromo() : old('price_promo') }}"
-                                   placeholder="Cena promocyjna">
-                            @error('price_promo')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                        <div class="col-md-2 col-12">
+                            <label for="price_promo" class="form-label">Cena promocyjna</label>
+                            <input type="number" id="price_promo" class="form-control" step="0.01" name="price_promo" value="{{ $item->price_promo ? $item->getPricePromo() : old('price_promo') }}">
                         </div>
-                        <div class="col-md-2">
-                            <label for="unit">Jednostka (dni)</label>
-                            <input type="number" value="{{ $item->unit ? $item->unit : old('unit') }}" name="unit" class="form-control">
-                            @error('unit')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="col-md-3">
-                            <label for="is_best_offer" class="col-form-label mt-4">
-                                <input type="checkbox" name="is_best_offer" id="is_best_offer" @if($item->is_best_offer) checked="checked" @endif> Najlepsza oferta
-                            </label>
+                        <div class="col-md-2 col-12">
+                            <label for="on_period" class="form-label">Cena za msc</label>
+                            <input type="number" id="on_period" class="form-control" step="0.01" name="on_period" value="{{ $item->on_period ? $item->getOnPeriod() : old('on_period') }}">
                         </div>
                     </div>
                     <div class="form-group">

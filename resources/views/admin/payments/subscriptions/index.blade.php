@@ -18,10 +18,10 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nazwa</th>
+                                <th scope="col">Okres trwania</th>
                                 <th scope="col">Cena</th>
-                                <th scope="col">Jednostka</th>
                                 <th scope="col">Cena promocyjna</th>
+                                <th scope="col">Cena za msc</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -29,10 +29,10 @@
                             @foreach($data as $key => $item)
                                 <tr>
                                     <th scope="row">{{ $key + 1 }}</th>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->period }}</td>
                                     <td>{{ $item->getPrice() }}</td>
-                                    <td>{{ $item->unit }}</td>
                                     <td>{{ $item->getPricePromo() }}</td>
+                                    <td>{{ $item->getOnPeriod() }}</td>
                                     <td class="text-right">
                                         <a href="{{ route('admin.subscription.update', ['id' => $item->id]) }}" class="btn btn-outline-warning btn-sm mr-2 btn-rounded">
                                             <i class="icon icon-pencil"></i>

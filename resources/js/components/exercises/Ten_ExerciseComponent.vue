@@ -101,7 +101,22 @@ export default {
     props: {
         type: '',
         save_url: '',
-        lesson_id: ''
+        lesson_id: '',
+        item_id: ''
+    },
+    mounted() {
+        if (this.item_id) {
+            this.$axios.get(`/administration/courses/lessons/exercises/find/${this.item_id}`)
+                .then((data) => {
+                    const item = data.data.data;
+                    this.data.header = item.template.header;
+                    this.data.txt = item.template.txt;
+                    this.data.txt_trans = item.template.txt_trans;
+                    this.data.sentence = item.template.sentence;
+                    this.data.sentence_trans = item.template.sentence_trans;
+                    this.data.speech_bubble_bottom = item.speech_bubble_bottom;
+                })
+        }
     }
 }
 </script>

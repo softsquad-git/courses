@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Courses;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Courses\CourseLessonExerciseRequest;
+use App\Http\Resources\Courses\CourseLessonExerciseResource;
 use App\Http\Resources\Courses\CourseLessonExercisesResource;
 use App\Models\Courses\Exercises\Exercise;
 use App\Models\Courses\Lesson;
@@ -49,6 +50,18 @@ class CourseLessonExerciseController extends Controller
     }
 
     /**
+     * @param int $id
+     * @return CourseLessonExerciseResource
+     * @throws Exception
+     */
+    public function find(int $id): CourseLessonExerciseResource
+    {
+        $item = $this->courseLessonExerciseRepository->find($id);
+
+        return new CourseLessonExerciseResource($item);
+    }
+
+    /**
      * @param CourseLessonExerciseRequest $request
      * @param int $lessonId
      * @return Application|Factory|View|JsonResponse
@@ -64,7 +77,7 @@ class CourseLessonExerciseController extends Controller
             ], 201);
         }
 
-        return \view('admin.courses.lessons.exercises.form', [
+        return view('admin.courses.lessons.exercises.form', [
             'item' => new Exercise(),
             'title' => 'Utwórz ćwiczenie',
             'lessonId' => $lessonId
@@ -84,7 +97,8 @@ class CourseLessonExerciseController extends Controller
          */
         $item = $this->courseLessonExerciseRepository->find($id);
         if ($request->isMethod('POST')) {
-
+            $this->courseLessonExerciseService->update($request->all(), $item);
+            dd($request->all());
         }
 
         return view('admin.courses.lessons.exercises.form', [

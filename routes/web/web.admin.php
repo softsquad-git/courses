@@ -72,6 +72,7 @@ Route::group(['prefix' => 'administration', 'namespace' => 'Admin'], function ()
                     ->name('admin.exercise.remove');
                 Route::match(['get', 'post'], 'update/{id}', 'CourseLessonExerciseController@update')
                     ->name('admin.exercise.update');
+                Route::get('find/{id}', 'CourseLessonExerciseController@find');
             });
 
             Route::group(['prefix' => 'flashcards'], function () {

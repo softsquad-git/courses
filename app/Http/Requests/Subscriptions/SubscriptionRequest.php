@@ -18,15 +18,15 @@ class SubscriptionRequest extends FormRequest
     /**
      * @return array
      */
-    #[ArrayShape(['name' => "string", 'price' => "string", 'price_promo' => "string", 'unit' => "string"])] public function rules(): array
+    public function rules(): array
     {
         $rules = [];
         if ($this->isMethod('post')) {
             $rules = [
-                'name' => 'required|string',
+                'period' => 'required|string',
                 'price' => 'required',
                 'price_promo' => 'nullable',
-                'unit' => 'required|string'
+                'on_period' => 'required|string'
             ];
         }
 

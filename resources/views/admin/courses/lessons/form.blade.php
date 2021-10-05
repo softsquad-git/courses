@@ -38,6 +38,15 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="sub_title">Krótka informacja</label>
+                        <input type="text" class="form-control" id="sub_title" name="sub_title" value="{{ $item->sub_title ? $item->sub_title : old('sub_title') }}">
+                        @error('sub_title')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="description">Opis</label>
                         <textarea id="description" name="description" class="editor">{{ $item->description ? $item->description : old('description') }}</textarea>
                     </div>

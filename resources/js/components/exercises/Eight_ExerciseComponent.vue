@@ -74,8 +74,21 @@ export default {
     props: {
         type: '',
         save_url: '',
-        lesson_id: ''
+        lesson_id: '',
+        item_id: ''
     },
+    mounted() {
+        if (this.item_id) {
+            this.$axios.get(`/administration/courses/lessons/exercises/find/${this.item_id}`)
+                .then((data) => {
+                    const item = data.data.data;
+                    this.data.header = item.template.header;
+                    this.data.question = item.template.question;
+                    this.data.is_true = item.template.is_true;
+                    this.data.speech_bubble_bottom = item.speech_bubble_bottom;
+                })
+        }
+    }
 }
 </script>
 

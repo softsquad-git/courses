@@ -3,6 +3,7 @@
 namespace App\Services\Courses\Exercises;
 
 use App\Models\Courses\Exercises\Exercise;
+use App\Models\Courses\Exercises\ExercisePairs;
 use App\Repositories\Courses\CourseLessonExerciseRepository;
 use App\Services\Courses\Exercises\Partials\ExerciseDataFieldsService;
 use App\Services\Courses\Exercises\Partials\ExerciseDialogueService;
@@ -31,6 +32,19 @@ class CourseLessonExerciseService
         try {
             $data['position'] = $this->courseLessonExerciseRepository->getMaxPosition($data['lesson_id']) + 1;
             $exercise = Exercise::create($data);
+
+            if ($exercise->type == Exercise::$types['MATCH_WORDS_PAIRS']) {
+                foreach ($data['words'] as $word) {
+                    ExercisePairs::create([
+                        'exercise_id' => $exercise->id,
+                        'txt' => $word['txt'],
+                        'txt_trans' => $word['txt_trans']
+                    ]);
+                }
+
+                DB::commit();
+                return $exercise;
+            }
 
             $fields = $this->exerciseDataFieldsService->save(
                 $data,
@@ -67,6 +81,16 @@ class CourseLessonExerciseService
             DB::rollBack();
             throw new Exception($e);
         }
+    }
+
+    public function update(array $data, Exercise $exercise)
+    {
+        $exercise->update([
+            'speech_bubble_bottom' => $data['speech_bubble_bottom'],
+            'header' => $data['header']
+        ]);
+
+
     }
 
     /**

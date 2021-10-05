@@ -97,6 +97,18 @@ name: "Twelve_ExerciseComponent",
                 //
             })
         }
+    },
+    mounted() {
+        if (this.item_id) {
+            this.$axios.get(`/administration/courses/lessons/exercises/find/${this.item_id}`)
+                .then((data) => {
+                    const item = data.data.data;
+                    this.data.header = item.template.header;
+                    this.data.header = item.template.txt;
+                    this.data.header = item.template.txt_trans;
+                    this.data.speech_bubble_bottom = item.speech_bubble_bottom;
+                })
+        }
     }
 }
 </script>

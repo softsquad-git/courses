@@ -45,7 +45,8 @@ class CourseLessonResource extends JsonResource
             'file_audio' => $this->getAudio(),
             'time_file_audio' => $this->time_file_audio.' min',
             'file_audio_src' => $this->file_audio,
-            'is_added_audio' => UserAudio::where(['lesson_id' => $this->id, 'user_id' => Auth::id()])->first() ? true : false
+            'is_added_audio' => UserAudio::where(['lesson_id' => $this->id, 'user_id' => Auth::id()])->first() ? true : false,
+            'sub_title' => $this->sub_title
         ];
     }
 

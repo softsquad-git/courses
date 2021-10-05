@@ -8,6 +8,7 @@ use App\Models\Exercises\ExerciseQuestionTrans;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -78,10 +79,22 @@ class Exercise extends Model
     }
 
     /**
-     * @return HasOne|null
+     * @return HasMany
      */
-    public function template(): ?HasOne
+    public function templateWordsPairs(): HasMany
     {
+        return $this->hasMany(ExercisePairs::class, 'exercise_id');
+    }
+
+    /**
+     * @return HasOne|HasMany|null
+     */
+    public function template(): HasOne|HasMany|null
+    {
+        if ($this->type == self::$types['MATCH_WORDS_PAIRS']) {
+            return $this->hasMany(ExercisePairs::class, 'exercise_id');
+        }
+
         $object = null;
 
         $object = match ((int)$this->type) {

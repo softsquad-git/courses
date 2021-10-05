@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int id
  * @property string|null file_audio
  * @property string|null time_file_audio
+ * @property string|null sub_title
  */
 class Lesson extends Model
 {
@@ -59,7 +60,8 @@ class Lesson extends Model
         'speech_bubble',
         'lesson_time',
         'file_audio',
-        'time_file_audio'
+        'time_file_audio',
+        'sub_title'
     ];
 
     /**

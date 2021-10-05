@@ -43,6 +43,13 @@ class CourseLessonExerciseResource extends JsonResource
             return new CourseDialogueResource($template);
         }
 
+        if ($type == Exercise::$types['MATCH_WORDS_PAIRS']) {
+            return [
+                'header' => $this->header,
+                'words' => CourseLessonExerciseMatchPairsResource::collection($this->template)
+            ];
+        }
+
         return new CourseLessonExercisesTemplateResource($template);
     }
 }

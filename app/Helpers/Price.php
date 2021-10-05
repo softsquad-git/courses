@@ -5,11 +5,14 @@ namespace App\Helpers;
 class Price
 {
     /**
-     * @param float|int $price
-     * @return int
+     * @param float|int|null $price
+     * @return int|null
      */
-    public static function code(float|int $price): int
+    public static function code(float|int|null $price): ?int
     {
+        if (!$price) {
+            return null;
+        }
         return $price * 100;
     }
 

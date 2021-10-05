@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @package App\Models\Subscriptions
- * @property string name
+ * @property string period
  * @property int price
- * @property int price_promo
- * @property string unit
+ * @property int on_period
+ * @property int|null price_promo
+ * @property string|null footer_info
  * @property int id
- * @property bool is_best_offer
  */
 class  Subscription extends Model
 {
@@ -28,11 +28,11 @@ class  Subscription extends Model
      * @var string[] $fillable
      */
     protected $fillable = [
-        'name',
+        'period',
         'price',
         'price_promo',
-        'unit',
-        'is_best_offer'
+        'on_period',
+        'footer_info'
     ];
 
     /**
@@ -54,6 +54,18 @@ class  Subscription extends Model
     {
         if ($this->price_promo) {
             return $this->price_promo / 100;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getOnPeriod(): float|int|null
+    {
+        if ($this->on_period) {
+            return $this->on_period / 100;
         }
 
         return null;

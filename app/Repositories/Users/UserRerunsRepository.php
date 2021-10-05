@@ -35,7 +35,7 @@ class UserRerunsRepository extends Repository
             return $data->get();
         }
 
-        return $data->paginate(20);
+        return $data->paginate(50);
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubscriptionsTable extends Migration
+class CreateExercisePairsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('exercise_pairs', function (Blueprint $table) {
             $table->id();
-            $table->string('period');
-            $table->integer('price');
-            $table->integer('on_period');
-            $table->integer('price_promo')->nullable();
-            $table->string('footer_info');
+            $table->unsignedInteger('exercise_id')->nullable();
+            $table->string('txt');
+            $table->string('txt_trans');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('exercise_pairs');
     }
 }

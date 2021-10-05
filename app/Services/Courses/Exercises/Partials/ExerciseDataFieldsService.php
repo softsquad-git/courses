@@ -12,6 +12,7 @@ use App\Models\Courses\Exercises\ExerciseImageTxt;
 use App\Models\Courses\Exercises\ExerciseIndicateCorrectAnswer;
 use App\Models\Courses\Exercises\ExerciseListenAnswerQuestion;
 use App\Models\Courses\Exercises\ExerciseListenChooseAnswer;
+use App\Models\Courses\Exercises\ExercisePairs;
 use App\Models\Courses\Exercises\ExerciseQuestionAnswer;
 use App\Models\Courses\Exercises\ExerciseQuestionTrueOrFalse;
 use App\Models\Courses\Exercises\ExerciseTip;
@@ -83,6 +84,7 @@ final class ExerciseDataFieldsService extends ExerciseMediaService
             Exercise::$types['DIALOGUE']                            => new Dialogue(),
             Exercise::$types['FLASHCARD']                           => new ExerciseFlashcard(),
             Exercise::$types['COMPLETE_SENTENCE']                   => new ExerciseCompleteSentence(),
+            Exercise::$types['MATCH_WORDS_PAIRS']                   => new ExercisePairs(),
             default                                                 => null
         };
 

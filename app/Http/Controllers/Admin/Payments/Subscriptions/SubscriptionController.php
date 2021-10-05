@@ -43,6 +43,7 @@ class SubscriptionController extends Controller
     /**
      * @param SubscriptionRequest $request
      * @return Application|Factory|View|RedirectResponse
+     * @throws Exception
      */
     public function create(SubscriptionRequest $request): Application|Factory|View|RedirectResponse
     {
