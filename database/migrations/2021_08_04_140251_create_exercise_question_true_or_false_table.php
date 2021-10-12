@@ -16,7 +16,7 @@ class CreateExerciseQuestionTrueOrFalseTable extends Migration
         Schema::create('exercise_question_true_or_false', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('exercise_id')->index();
-            $table->string('question');
+            $table->text('question');
             $table->boolean('is_true');
             $table->timestamps();
         });

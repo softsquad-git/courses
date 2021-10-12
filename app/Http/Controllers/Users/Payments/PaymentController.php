@@ -6,8 +6,10 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\Payments\PaymentRequest;
 use App\Http\Resources\Payments\PaymentsResource;
 use App\Models\Payments\Payment;
+use App\Models\Payments\PromotionalCode;
 use App\Models\Subscriptions\Subscription;
 use App\Repositories\Payments\PaymentsRepository;
+use App\Repositories\Payments\PromotionalCodeRepository;
 use App\Repositories\Payments\Subscriptions\SubscriptionRepository;
 use App\Services\Payments\PaymentService;
 use \Exception;
@@ -21,11 +23,13 @@ class PaymentController extends ApiController
      * @param PaymentService $paymentService
      * @param PaymentsRepository $paymentsRepository
      * @param SubscriptionRepository $subscriptionRepository
+     * @param PromotionalCodeRepository $promotionalCodeRepository
      */
     public function __construct(
-        private PaymentService $paymentService,
-        private PaymentsRepository $paymentsRepository,
-        private SubscriptionRepository $subscriptionRepository
+        private PaymentService            $paymentService,
+        private PaymentsRepository        $paymentsRepository,
+        private SubscriptionRepository    $subscriptionRepository,
+        private PromotionalCodeRepository $promotionalCodeRepository
     )
     {
     }
@@ -101,5 +105,25 @@ class PaymentController extends ApiController
         } catch (Exception $e) {
             return $this->errorResponse($e);
         }
+    }
+
+    /**
+     * @param string $code
+     * @return JsonResponse
+     */
+    public function checkRabatCode(string $code): JsonResponse
+    {
+        /**
+         * @var PromotionalCode|null $code
+         */
+        $code = $this->promotionalCodeRepository->findOneBy(['name' => $code]);
+
+        if (!$code) {
+            return $this->badResponse('Podany kod rabatowy jest nieprawidłowy');
+        }
+
+        return $this->successResponse('', [
+            'code' => $code
+        ]);
     }
 }

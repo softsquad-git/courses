@@ -7,7 +7,11 @@
     <div class="row form-group">
         <div class="col-md-6">
             <label for="question" class="col-form-label">Pytanie</label>
-            <input type="text" class="form-control" v-model="data.question" id="question">
+            <quill-editor
+                ref="myQuillEditor"
+                v-model="data.question"
+                :options="editorOption"
+            />
         </div>
         <div class="col-md-6">
             <label for="question_2_true" class="col-form-label" style="margin-top: 37px">
@@ -29,8 +33,16 @@
 </template>
 
 <script>
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+import { quillEditor } from 'vue-quill-editor'
 export default {
     name: "Eight_ExerciseComponent",
+    components: {
+        quillEditor
+    },
     data(){
         return {
             data: {
@@ -41,6 +53,9 @@ export default {
                 speech_bubble_bottom: '',
                 header: ''
             },
+            editorOption: {
+
+            }
         }
     },
     methods: {

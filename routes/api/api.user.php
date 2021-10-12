@@ -17,6 +17,7 @@ Route::group(['prefix' => 'users', 'namespace' => 'Users'], function () {
         Route::get('', 'PaymentController@all');
         Route::post('pay', 'PaymentController@payment');
         Route::post('finalization', 'PaymentController@finalization');
+        Route::get('check-rabat-code/{code}', 'PaymentController@checkRabatCode');
     });
     Route::group(['prefix' => 'audio'], function () {
         Route::get('', 'UserAudioController@all');
