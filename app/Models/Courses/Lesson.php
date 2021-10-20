@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int position
  * @property string lesson_time
  * @method static find(int $lessonId)
+ * @method static where(string $string, int $courseId)
  * @property int id
  * @property string|null file_audio
  * @property string|null time_file_audio

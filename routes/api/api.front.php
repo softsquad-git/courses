@@ -6,6 +6,7 @@ Route::group(['prefix' => 'course', 'namespace' => 'Front', 'middleware' => 'aut
    Route::get('levels', 'Levels\LevelController');
    Route::get('change-level/{id}', 'Levels\LevelController@changeLevel');
    Route::get('default-level', 'Levels\LevelController@defaultLevel');
+   Route::get('next-level/{id}', 'Levels\LevelController@nextLevel');
    Route::group(['prefix' => 'courses', 'namespace' => 'Courses'], function () {
       Route::get('stat/{courseId}', 'CourseController@getStat');
       Route::get('user-lesson-progress', 'LessonController@getUserLessonInfo');

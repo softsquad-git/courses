@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int position
  * @property int type
  * @property string header
+ * @property string|null success_answer_file
  * @method static create(array $data)
  * @method static orderBy(string $column, string $value)
  */
@@ -67,8 +68,21 @@ class Exercise extends Model
         'position',
         'type',
         'speech_bubble_bottom',
-        'header'
+        'header',
+        'success_answer_file'
     ];
+
+    /**
+     * @return string|null
+     */
+    public function getSuccessAnswerFile(): ?string
+    {
+        if ($this->success_answer_file) {
+            return asset(self::$fileSoundDir.$this->success_answer_file);
+        }
+
+        return null;
+    }
 
     /**
      * @return BelongsTo

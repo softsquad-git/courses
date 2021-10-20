@@ -34,7 +34,7 @@ class CourseLessonResource extends JsonResource
             'created_at' => (string)$this->created_at,
             'description' => $this->description,
             'position' => $this->position,
-            'time' => $this->lesson_time.' min',
+            'time' => $this->lesson_time,
             'progress' => [
                 'completed' => $completed->count(),
                 'all' => $this->exercises->count(),
@@ -43,7 +43,7 @@ class CourseLessonResource extends JsonResource
             'is_premium' => Auth::user()->is_premium ? 0 : $this->is_premium,
             'countFlashcards' => $this->flashcards->count(),
             'file_audio' => $this->getAudio(),
-            'time_file_audio' => $this->time_file_audio.' min',
+            'time_file_audio' => $this->time_file_audio,
             'file_audio_src' => $this->file_audio,
             'is_added_audio' => UserAudio::where(['lesson_id' => $this->id, 'user_id' => Auth::id()])->first() ? true : false,
             'sub_title' => $this->sub_title

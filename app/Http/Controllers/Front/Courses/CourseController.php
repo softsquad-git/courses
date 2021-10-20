@@ -11,7 +11,8 @@ class CourseController extends ApiController
     public function __construct(
         private CourseLessonRepository $courseLessonRepository
     )
-    {}
+    {
+    }
 
     /**
      * @param int $courseId
@@ -23,8 +24,11 @@ class CourseController extends ApiController
             'course_id' => $courseId
         ]);
 
+        $completeStat = $this->courseLessonRepository->completeLessonStat($courseId);
+
         return $this->successResponse('', [
-           'countAllLessons' => $allLessons->count()
+            'countAllLessons' => $allLessons->count(),
+            'complete' => $completeStat
         ]);
     }
 }

@@ -19,10 +19,11 @@ class LevelController extends ApiController
      * @param CourseRepository $courseRepository
      */
     public function __construct(
-        private LevelRepository $levelRepository,
+        private LevelRepository  $levelRepository,
         private CourseRepository $courseRepository
     )
-    {}
+    {
+    }
 
     /**
      * @return JsonResponse|AnonymousResourceCollection
@@ -87,5 +88,31 @@ class LevelController extends ApiController
             'item' => $item,
             'courseId' => $course->id
         ]);
+    }
+
+    /**
+     * @param int $levelId
+     * @return JsonResponse
+     */
+    public function nextLevel(int $levelId): JsonResponse
+    {
+        $next = Level::where('id', '>', $levelId)->min('position');
+
+        if ($next) {
+            $nextLevel = Level::where('position', $next)->first();
+
+            $course = $this->courseRepository->findOneBy(['level_id' => $nextLevel->id]);
+
+            if (!$course) {
+                return $this->badResponse('no_course_next_level');
+            }
+
+            return $this->successResponse('', [
+                'courseId' => $course->id,
+                'level' => $nextLevel
+            ]);
+        }
+
+        return $this->badResponse('last_level');
     }
 }

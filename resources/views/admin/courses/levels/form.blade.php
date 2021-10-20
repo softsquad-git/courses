@@ -29,8 +29,17 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="is_default"><input type="checkbox" name="is_default" id="is_default" value="0"> Domyślny poziom</label>
+                    <div class="form-group row">
+                        <div class="col-md-3 col-12">
+                            <label for="is_default"><input type="checkbox" name="is_default" id="is_default" value="0"> Domyślny poziom</label>
+                        </div>
+                        <div class="col-md-3 col-12">
+                            <label for="position">Pozycja</label>
+                            <input type="number" class="form-control" name="position" value="{{ $item->position ? $item->position : old('position') }}">
+                            @error('position')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-outline-success btn-sm btn-rounded mr-2">

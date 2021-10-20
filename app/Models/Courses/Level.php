@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null description
  * @property int id
  * @property bool|null is_default
+ * @property int position
  */
 class Level extends Model
 {
@@ -28,7 +29,8 @@ class Level extends Model
     protected $fillable = [
         'name',
         'description',
-        'is_default'
+        'is_default',
+        'position'
     ];
 
     /**
