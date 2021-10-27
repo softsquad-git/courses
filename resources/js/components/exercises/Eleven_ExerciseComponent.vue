@@ -82,9 +82,15 @@ export default {
     methods: {
         save() {
             let formData = new FormData();
-            formData.append('interlocutor_one_image', this.data.interlocutor_one_image, this.data.interlocutor_one_image.name);
-            formData.append('interlocutor_two_image', this.data.interlocutor_two_image, this.data.interlocutor_two_image.name);
-            formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
+            if (this.data.interlocutor_one_image) {
+                formData.append('interlocutor_one_image', this.data.interlocutor_one_image, this.data.interlocutor_one_image.name);
+            }
+            if (this.data.interlocutor_two_image) {
+                formData.append('interlocutor_two_image', this.data.interlocutor_two_image, this.data.interlocutor_two_image.name);
+            }
+            if (this.data.sound_file) {
+                formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
+            }
             formData.append('conversations', JSON.stringify(this.data.conversations));
             formData.append('type', this.type);
             formData.append('lesson_id', this.lesson_id);
@@ -146,6 +152,7 @@ export default {
                     const item = data.data.data;
                     this.data.header = item.template.header;
                     this.data.speech_bubble_bottom = item.speech_bubble_bottom;
+                    this.data.conversations = item.template.conversations
                 })
         }
     }

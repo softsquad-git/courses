@@ -55,7 +55,8 @@ name: "Twelve_ExerciseComponent",
     props: {
         type: '',
         save_url: '',
-        lesson_id: ''
+        lesson_id: '',
+        item_id: ''
     },
     methods: {
         changeImage(e) {
@@ -68,8 +69,12 @@ name: "Twelve_ExerciseComponent",
             let formData = new FormData();
             formData.append('txt', this.data.txt);
             formData.append('txt_trans', this.data.txt_trans);
-            formData.append('image', this.data.image, this.data.image.name);
-            formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
+            if (this.data.image) {
+                formData.append('image', this.data.image, this.data.image.name);
+            }
+            if (this.data.sound_file) {
+                formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
+            }
             formData.append('type', this.type);
             formData.append('lesson_id', this.lesson_id);
             formData.append('header', this.data.header);
@@ -104,9 +109,10 @@ name: "Twelve_ExerciseComponent",
                 .then((data) => {
                     const item = data.data.data;
                     this.data.header = item.template.header;
-                    this.data.header = item.template.txt;
-                    this.data.header = item.template.txt_trans;
+                    this.data.txt = item.template.txt;
+                    this.data.txt_trans = item.template.txt_trans;
                     this.data.speech_bubble_bottom = item.speech_bubble_bottom;
+                    console.log(item)
                 })
         }
     }

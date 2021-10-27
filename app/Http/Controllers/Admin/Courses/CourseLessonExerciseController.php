@@ -98,7 +98,6 @@ class CourseLessonExerciseController extends Controller
         $item = $this->courseLessonExerciseRepository->find($id);
         if ($request->isMethod('POST')) {
             $this->courseLessonExerciseService->update($request->all(), $item);
-            dd($request->all());
         }
 
         return view('admin.courses.lessons.exercises.form', [

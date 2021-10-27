@@ -17,6 +17,9 @@ class CourseLessonExercisesTemplateResource extends JsonResource
         $data = parent::toArray($request);
         $data['header'] = $this->exercise?->header;
 
+        if ($this->exercise?->success_answer_file) {
+            $data['success_answer_file'] = $this->exercise?->getSuccessAnswerFile();
+        }
 
         if ($this->image) {
             $data['image'] = $this->getImage();

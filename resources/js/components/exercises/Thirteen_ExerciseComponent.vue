@@ -17,6 +17,12 @@
                 <input type="text" class="form-control" v-model="data.sentence_trans" id="sentence_trans">
             </div>
         </div>
+        <div class="row form-group">
+            <div class="col-md-6">
+                <label class="col-form-label" for="success_answer_file">Poprawna odpowiedź (plik dźwiękowy)</label>
+                <input type="file" class="form-control" id="success_answer_file" v-on:change="changeSuccessAnswerFile">
+            </div>
+        </div>
         <answers-component ref="answers"></answers-component>
         <div class="form-group row" style="margin-top: 20px">
             <div class="col-md-6 col-12">
@@ -42,7 +48,8 @@ export default {
                 sentence: '',
                 sentence_trans: '',
                 header: '',
-                speech_bubble_bottom: ''
+                speech_bubble_bottom: '',
+                success_answer_file: ''
             },
         }
     },
@@ -54,10 +61,19 @@ export default {
     },
     methods: {
         save() {
-            this.data.type = this.type;
-            this.data.lesson_id = this.lesson_id;
-            this.data.answers = JSON.stringify(this.$refs.answers.$data.data);
-            this.$axios.post(this.save_url, this.data)
+            let formData = new FormData();
+            if (this.data.success_answer_file) {
+                formData.append('success_answer_file', this.data.success_answer_file, this.data.success_answer_file.name);
+            }
+            formData.append('answers', JSON.stringify(this.$refs.answers.$data.data));
+            formData.append('type', this.type);
+            formData.append('lesson_id', this.lesson_id);
+            formData.append('header', this.data.header);
+            formData.append('speech_bubble_bottom', this.data.speech_bubble_bottom);
+            formData.append('sentence', this.data.sentence);
+            formData.append('sentence_trans', this.data.sentence_trans);
+
+            this.$axios.post(this.save_url, formData)
                 .then((data) => {
                     this.$swal.fire({
                         title: 'Świetnie!',
@@ -78,6 +94,9 @@ export default {
                 }).catch((error) => {
                 //
             })
+        },
+        changeSuccessAnswerFile(e) {
+            this.data.success_answer_file = e.target.files[0]
         },
     },
     mounted() {

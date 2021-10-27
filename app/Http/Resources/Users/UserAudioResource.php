@@ -16,7 +16,8 @@ class UserAudioResource extends JsonResource
         return [
             'id' => $this->id,
             'lesson_id' => $this->lesson_id,
-            'file' => $this->getFile()
+            'file' => $this->getFile(),
+            'image' => $this->lesson?->getImage()
         ];
     }
 }

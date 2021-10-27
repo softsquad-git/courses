@@ -64,8 +64,12 @@ export default {
             let formData = new FormData();
             formData.append('txt', this.data.txt);
             formData.append('txt_trans', this.data.txt_trans);
-            formData.append('image', this.data.image, this.data.image.name);
-            formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
+            if (this.data.image) {
+                formData.append('image', this.data.image, this.data.image.name);
+            }
+            if (this.data.sound_file) {
+                formData.append('sound_file', this.data.sound_file, this.data.sound_file.name);
+            }
             formData.append('type', this.type);
             formData.append('lesson_id', this.lesson_id);
             formData.append('header', this.data.header);
