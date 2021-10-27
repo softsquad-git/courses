@@ -33,4 +33,14 @@ class SubscriptionController extends ApiController
             return $this->errorResponse($e);
         }
     }
+
+    public function find(int $id)
+    {
+        $item = $this->subscriptionRepository->find($id);
+        if (!$item) {
+            return $this->noFoundResponse();
+        }
+
+        return new SubscriptionsResource($item);
+    }
 }

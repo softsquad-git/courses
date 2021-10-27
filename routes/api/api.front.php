@@ -26,6 +26,7 @@ Route::group(['prefix' => 'course', 'namespace' => 'Front', 'middleware' => 'aut
    });
     Route::group(['prefix' => 'payments', 'namespace' => 'Payments'], function () {
         Route::get('subscriptions', 'SubscriptionController');
+        Route::get('subscriptions/find/{id}', 'SubscriptionController@find');
     });
     Route::group(['prefix' => 'exercises', 'namespace' => 'Exercises'], function () {
        Route::get('find', 'ExerciseController@find');

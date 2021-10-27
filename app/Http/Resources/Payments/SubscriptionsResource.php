@@ -25,7 +25,7 @@ class SubscriptionsResource extends JsonResource
                 'cents' => $onPeriodPartials[1]
             ],
             'period' => $this->period,
-            'percent_minus' => $this->price_promo ? round(((($this->price - $this->price_promo) / $this->price) * 100), 0) : null
+            'percent_minus' => $this->price_promo ? round(((($this->price - $this->price_promo) / $this->price) * 100), 0) : null,
         ];
     }
 }
